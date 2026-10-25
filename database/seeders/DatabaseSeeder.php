@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Medicine;
 use App\Models\User;
 use Carbon\Carbon;
@@ -24,12 +25,46 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // 2. Tạo danh sách các loại thuốc thực tế mẫu
+        // 2. Tạo các nhóm / danh mục thuốc
+        $categoriesData = [
+            [
+                'name' => 'Giảm đau - Hạ sốt',
+                'description' => 'Các loại thuốc giảm các cơn đau thông thường và hạ thân nhiệt khi bị sốt, cảm cúm.',
+            ],
+            [
+                'name' => 'Kháng sinh',
+                'description' => 'Thuốc tiêu diệt hoặc ức chế sự phát triển của vi khuẩn gây nhiễm khuẩn trong cơ thể.',
+            ],
+            [
+                'name' => 'Tiêu hóa - Dạ dày',
+                'description' => 'Thuốc hỗ trợ tiêu hóa, trào ngược dạ dày thực quản, tiêu chảy, đầy bụng, viêm loét.',
+            ],
+            [
+                'name' => 'Hô hấp - Trị ho',
+                'description' => 'Thuốc giảm ho, long đờm, thông mũi và điều trị các triệu chứng đường hô hấp trên.',
+            ],
+            [
+                'name' => 'Vitamin & Khoáng chất',
+                'description' => 'Bổ sung vi chất dinh dưỡng thiết yếu, nâng cao sức đề kháng và phục hồi sức khỏe.',
+            ],
+            [
+                'name' => 'Tim mạch & Huyết áp',
+                'description' => 'Thuốc kiểm soát huyết áp, nhịp tim và dự phòng các bệnh lý tim mạch mãn tính.',
+            ],
+        ];
+
+        $categories = [];
+        foreach ($categoriesData as $cat) {
+            $category = Category::firstOrCreate(['name' => $cat['name']], $cat);
+            $categories[$cat['name']] = $category->id;
+        }
+
+        // 3. Tạo danh sách các loại thuốc thực tế mẫu
         $sampleMedicines = [
             [
                 'name' => 'Paracetamol 500mg',
                 'code' => 'PARA500',
-                'category' => 'Giảm đau - Hạ sốt',
+                'category_id' => $categories['Giảm đau - Hạ sốt'],
                 'unit' => 'Hộp',
                 'price' => 35000,
                 'stock' => 120,
@@ -39,7 +74,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Panadol Extra Đỏ',
                 'code' => 'PANEXT',
-                'category' => 'Giảm đau - Hạ sốt',
+                'category_id' => $categories['Giảm đau - Hạ sốt'],
                 'unit' => 'Hộp',
                 'price' => 52000,
                 'stock' => 85,
@@ -49,7 +84,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Amoxicillin 500mg',
                 'code' => 'AMOX500',
-                'category' => 'Kháng sinh',
+                'category_id' => $categories['Kháng sinh'],
                 'unit' => 'Vỉ',
                 'price' => 28000,
                 'stock' => 8, // Cảnh báo sắp hết hàng
@@ -59,7 +94,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Augmentin 1g',
                 'code' => 'AUG1G',
-                'category' => 'Kháng sinh',
+                'category_id' => $categories['Kháng sinh'],
                 'unit' => 'Hộp',
                 'price' => 185000,
                 'stock' => 45,
@@ -69,7 +104,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Berberin 100mg',
                 'code' => 'BERB100',
-                'category' => 'Tiêu hóa - Dạ dày',
+                'category_id' => $categories['Tiêu hóa - Dạ dày'],
                 'unit' => 'Lọ',
                 'price' => 18000,
                 'stock' => 200,
@@ -79,7 +114,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Smecta 3g',
                 'code' => 'SMECTA3',
-                'category' => 'Tiêu hóa - Dạ dày',
+                'category_id' => $categories['Tiêu hóa - Dạ dày'],
                 'unit' => 'Hộp',
                 'price' => 115000,
                 'stock' => 60,
@@ -89,7 +124,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Gaviscon Dual Action',
                 'code' => 'GAVISD',
-                'category' => 'Tiêu hóa - Dạ dày',
+                'category_id' => $categories['Tiêu hóa - Dạ dày'],
                 'unit' => 'Hộp',
                 'price' => 145000,
                 'stock' => 5, // Cảnh báo sắp hết hàng
@@ -99,7 +134,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Decolgen Forte',
                 'code' => 'DECOLF',
-                'category' => 'Hô hấp - Trị ho',
+                'category_id' => $categories['Hô hấp - Trị ho'],
                 'unit' => 'Vỉ',
                 'price' => 15000,
                 'stock' => 150,
@@ -109,7 +144,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Eugica Đỏ viên nang mềm',
                 'code' => 'EUGICARD',
-                'category' => 'Hô hấp - Trị ho',
+                'category_id' => $categories['Hô hấp - Trị ho'],
                 'unit' => 'Hộp',
                 'price' => 65000,
                 'stock' => 90,
@@ -119,7 +154,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Berocca Performance Hương Cam',
                 'code' => 'BEROCCA',
-                'category' => 'Vitamin & Khoáng chất',
+                'category_id' => $categories['Vitamin & Khoáng chất'],
                 'unit' => 'Tuýp',
                 'price' => 88000,
                 'stock' => 70,
@@ -129,7 +164,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Salonpas Pain Relief Patch',
                 'code' => 'SALONP',
-                'category' => 'Giảm đau - Hạ sốt',
+                'category_id' => $categories['Giảm đau - Hạ sốt'],
                 'unit' => 'Gói',
                 'price' => 22000,
                 'stock' => 180,
@@ -139,7 +174,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Amlodipin 5mg',
                 'code' => 'AMLO5',
-                'category' => 'Tim mạch & Huyết áp',
+                'category_id' => $categories['Tim mạch & Huyết áp'],
                 'unit' => 'Hộp',
                 'price' => 45000,
                 'stock' => 0, // Hết hàng

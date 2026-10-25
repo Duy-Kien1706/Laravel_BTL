@@ -3,127 +3,115 @@
 @section('title', 'Chỉnh Sửa Thuốc: ' . $medicine->name)
 
 @section('content')
-<div style="max-width: 860px; margin: 0 auto;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <div>
-            <a href="{{ route('medicines.index') }}" class="ant-btn ant-btn-sm" style="margin-bottom: 8px;">
-                <i class="fa-solid fa-arrow-left"></i> Quay Lại Danh Sách
-            </a>
-            <h2 style="margin: 0; font-size: 22px; font-weight: 600; color: rgba(0, 0, 0, 0.88);">Chỉnh Sửa Thông Tin Thuốc</h2>
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <div>
+                <a href="{{ route('medicines.index') }}" class="btn btn-outline-secondary btn-sm mb-1">
+                    <i class="bi bi-arrow-left me-1"></i> Quay Lại Danh Sách
+                </a>
+                <h4 class="fw-bold mb-0">Chỉnh Sửa Thông Tin Thuốc</h4>
+            </div>
+            <div>
+                <span class="badge bg-secondary font-monospace">{{ $medicine->code }}</span>
+            </div>
         </div>
-        <div>
-            <span class="ant-tag" style="font-family: monospace; font-size: 13px;">{{ $medicine->code }}</span>
-        </div>
-    </div>
 
-    <div class="ant-card">
-        <div class="ant-card-body" style="padding: 32px;">
-            <form action="{{ route('medicines.update', $medicine) }}" method="POST">
-                @csrf
-                @method('PUT')
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <form action="{{ route('medicines.update', $medicine) }}" method="POST">
+                    @csrf
+                    @method('PUT')
 
-                <div class="ant-grid-row">
-                    <div class="ant-col-12">
-                        <div class="ant-form-item">
-                            <label class="ant-form-item-label required" for="code">Mã Thuốc</label>
-                            <input type="text" class="ant-input @error('code') ant-input-error @enderror" id="code" name="code" value="{{ old('code', $medicine->code) }}" required>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label for="code" class="form-label fw-semibold small">Mã Thuốc <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control @error('code') is-invalid @enderror" id="code" name="code" value="{{ old('code', $medicine->code) }}" required>
                             @error('code')
-                                <span class="ant-input-error-msg">{{ $message }}</span>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
 
-                    <div class="ant-col-12">
-                        <div class="ant-form-item">
-                            <label class="ant-form-item-label required" for="name">Tên Thuốc</label>
-                            <input type="text" class="ant-input @error('name') ant-input-error @enderror" id="name" name="name" value="{{ old('name', $medicine->name) }}" required>
+                        <div class="col-md-8">
+                            <label for="name" class="form-label fw-semibold small">Tên Thuốc <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $medicine->name) }}" required>
                             @error('name')
-                                <span class="ant-input-error-msg">{{ $message }}</span>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
 
-                    <div class="ant-col-12">
-                        <div class="ant-form-item">
-                            <label class="ant-form-item-label required" for="category">Nhóm / Danh Mục Thuốc</label>
-                            <input list="category-options" class="ant-input @error('category') ant-input-error @enderror" id="category" name="category" value="{{ old('category', $medicine->category) }}" required>
-                            <datalist id="category-options">
-                                @foreach($defaultCategories as $cat)
-                                    <option value="{{ $cat }}">
+                        <div class="col-md-6">
+                            <label for="category_id" class="form-label fw-semibold small">Danh Mục Thuốc <span class="text-danger">*</span></label>
+                            <select class="form-select @error('category_id') is-invalid @enderror" id="category_id" name="category_id" required>
+                                <option value="">-- Chọn danh mục thuốc --</option>
+                                @foreach($categories as $cat)
+                                    <option value="{{ $cat->id }}" {{ old('category_id', $medicine->category_id) == $cat->id ? 'selected' : '' }}>
+                                        {{ $cat->name }}
+                                    </option>
                                 @endforeach
-                            </datalist>
-                            @error('category')
-                                <span class="ant-input-error-msg">{{ $message }}</span>
+                            </select>
+                            @error('category_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
 
-                    <div class="ant-col-12">
-                        <div class="ant-form-item">
-                            <label class="ant-form-item-label required" for="unit">Đơn Vị Tính</label>
-                            <input list="unit-options" class="ant-input @error('unit') ant-input-error @enderror" id="unit" name="unit" value="{{ old('unit', $medicine->unit) }}" required>
+                        <div class="col-md-6">
+                            <label for="unit" class="form-label fw-semibold small">Đơn Vị Tính <span class="text-danger">*</span></label>
+                            <input list="unit-options" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit" value="{{ old('unit', $medicine->unit) }}" required>
                             <datalist id="unit-options">
                                 @foreach($defaultUnits as $u)
                                     <option value="{{ $u }}">
                                 @endforeach
                             </datalist>
                             @error('unit')
-                                <span class="ant-input-error-msg">{{ $message }}</span>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
 
-                    <div class="ant-col-12">
-                        <div class="ant-form-item">
-                            <label class="ant-form-item-label required" for="price">Đơn Giá Bán (VNĐ)</label>
-                            <div style="position: relative;">
-                                <input type="number" step="500" min="0" class="ant-input @error('price') ant-input-error @enderror" id="price" name="price" value="{{ old('price', (int)$medicine->price) }}" style="padding-right: 32px;" required>
-                                <span style="position: absolute; right: 12px; top: 9px; color: rgba(0,0,0,0.45); font-size: 13px;">đ</span>
+                        <div class="col-md-4">
+                            <label for="price" class="form-label fw-semibold small">Đơn Giá Bán (VNĐ) <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <input type="number" step="500" min="0" class="form-control @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price', (int)$medicine->price) }}" required>
+                                <span class="input-group-text">đ</span>
                             </div>
                             @error('price')
-                                <span class="ant-input-error-msg">{{ $message }}</span>
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
 
-                    <div class="ant-col-12">
-                        <div class="ant-form-item">
-                            <label class="ant-form-item-label required" for="stock">Số Lượng Tồn Kho</label>
-                            <input type="number" min="0" class="ant-input @error('stock') ant-input-error @enderror" id="stock" name="stock" value="{{ old('stock', $medicine->stock) }}" required>
+                        <div class="col-md-4">
+                            <label for="stock" class="form-label fw-semibold small">Số Lượng Tồn Kho <span class="text-danger">*</span></label>
+                            <input type="number" min="0" class="form-control @error('stock') is-invalid @enderror" id="stock" name="stock" value="{{ old('stock', $medicine->stock) }}" required>
                             @error('stock')
-                                <span class="ant-input-error-msg">{{ $message }}</span>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
 
-                    <div class="ant-col-24">
-                        <div class="ant-form-item">
-                            <label class="ant-form-item-label required" for="expiry_date">Hạn Sử Dụng</label>
-                            <input type="date" class="ant-input @error('expiry_date') ant-input-error @enderror" id="expiry_date" name="expiry_date" value="{{ old('expiry_date', $medicine->expiry_date->format('Y-m-d')) }}" required>
+                        <div class="col-md-4">
+                            <label for="expiry_date" class="form-label fw-semibold small">Hạn Sử Dụng <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control @error('expiry_date') is-invalid @enderror" id="expiry_date" name="expiry_date" value="{{ old('expiry_date', $medicine->expiry_date->format('Y-m-d')) }}" required>
                             @error('expiry_date')
-                                <span class="ant-input-error-msg">{{ $message }}</span>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
 
-                    <div class="ant-col-24">
-                        <div class="ant-form-item">
-                            <label class="ant-form-item-label" for="description">Mô Tả & Hướng Dẫn Sử Dụng</label>
-                            <textarea class="ant-input @error('description') ant-input-error @enderror" id="description" name="description" rows="4" style="height: auto;">{{ old('description', $medicine->description) }}</textarea>
+                        <div class="col-12">
+                            <label for="description" class="form-label fw-semibold small">Mô Tả & Hướng Dẫn Sử Dụng</label>
+                            <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="4">{{ old('description', $medicine->description) }}</textarea>
                             @error('description')
-                                <span class="ant-input-error-msg">{{ $message }}</span>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
-                </div>
 
-                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px; padding-top: 20px; border-top: 1px solid #f0f0f0;">
-                    <a href="{{ route('medicines.index') }}" class="ant-btn">Hủy Bỏ</a>
-                    <button type="submit" class="ant-btn ant-btn-primary">
-                        <i class="fa-solid fa-floppy-disk"></i> Lưu Thay Đổi
-                    </button>
-                </div>
-            </form>
+                    <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+                        <a href="{{ route('medicines.index') }}" class="btn btn-outline-secondary px-4">Hủy Bỏ</a>
+                        <button type="submit" class="btn btn-primary px-4 fw-semibold">
+                            <i class="bi bi-save me-1"></i> Lưu Thay Đổi
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

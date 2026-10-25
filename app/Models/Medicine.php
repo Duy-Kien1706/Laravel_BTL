@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Medicine extends Model
 {
     protected $fillable = [
         'name',
         'code',
-        'category',
+        'category_id',
         'unit',
         'price',
         'stock',
@@ -24,6 +25,14 @@ class Medicine extends Model
             'price' => 'decimal:2',
             'stock' => 'integer',
         ];
+    }
+
+    /**
+     * Danh mục của loại thuốc này
+     */
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
     }
 
     /**

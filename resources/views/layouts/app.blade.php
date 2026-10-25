@@ -3,414 +3,370 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Quản Lý Thuốc') - PharmaCare (Ant Design)</title>
-    <!-- Ant Design CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.24.16/antd.min.css">
-    <!-- FontAwesome 6 Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>@yield('title', 'Quản Lý Thuốc') - PharmaCare</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --ant-primary: #1677ff;
-            --ant-primary-hover: #4096ff;
-            --ant-success: #52c41a;
-            --ant-warning: #faad14;
-            --ant-danger: #ff4d4f;
-            --ant-bg: #f5f5f5;
-        }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: var(--ant-bg);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f1f5f9;
+            color: #1e293b;
             margin: 0;
             padding: 0;
-            color: rgba(0, 0, 0, 0.85);
             min-height: 100vh;
+        }
+        /* Layout Wrapper */
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+        }
+        /* Left Sidebar */
+        .sidebar {
+            width: 260px;
+            background: #0f172a;
+            color: #e2e8f0;
+            flex-shrink: 0;
             display: flex;
             flex-direction: column;
-        }
-        .ant-layout {
-            background: transparent;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        .ant-layout-header {
-            background: #001529;
-            height: 64px;
-            padding: 0 32px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
             position: sticky;
             top: 0;
+            height: 100vh;
+            overflow-y: auto;
             z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.08);
         }
-        .header-brand {
+        .sidebar-brand {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             align-items: center;
             gap: 12px;
-            color: #fff;
             text-decoration: none;
-            font-size: 18px;
-            font-weight: 600;
-            letter-spacing: -0.3px;
-        }
-        .header-brand .brand-icon {
-            width: 32px;
-            height: 32px;
-            background: #1677ff;
             color: #fff;
-            border-radius: 6px;
+        }
+        .sidebar-brand-icon {
+            width: 38px;
+            height: 38px;
+            background: #2563eb;
+            color: #fff;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
         }
-        .header-menu {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-left: 32px;
+        .sidebar-brand-text h6 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: -0.3px;
         }
-        .header-menu a {
-            color: rgba(255, 255, 255, 0.75);
-            text-decoration: none;
-            padding: 6px 14px;
-            border-radius: 4px;
-            font-size: 14px;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+        .sidebar-brand-text small {
+            color: #94a3b8;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .header-menu a:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.1);
-        }
-        .header-menu a.active {
-            color: #fff;
-            background: #1677ff;
-            font-weight: 500;
-        }
-        .header-user {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        .ant-layout-content {
+        .sidebar-nav {
+            padding: 16px 12px;
             flex: 1;
-            padding: 24px 32px;
-            max-width: 1280px;
-            width: 100%;
-            margin: 0 auto;
-            box-sizing: border-box;
         }
-        .ant-layout-footer {
-            background: #fff;
-            padding: 16px 32px;
-            text-align: center;
-            color: rgba(0, 0, 0, 0.45);
-            font-size: 13px;
-            border-top: 1px solid #f0f0f0;
+        .nav-category {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #64748b;
+            padding: 12px 12px 6px;
         }
-        /* Custom Helper Classes */
-        .ant-card {
-            border-radius: 8px;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
-            border: 1px solid #f0f0f0;
-        }
-        .ant-grid-row {
+        .sidebar-link {
             display: flex;
-            flex-wrap: wrap;
-            margin: -8px;
+            align-items: center;
+            gap: 11px;
+            padding: 10px 14px;
+            color: #94a3b8;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            margin-bottom: 4px;
         }
-        .ant-col-6 {
-            flex: 0 0 25%;
-            max-width: 25%;
-            padding: 8px;
-            box-sizing: border-box;
+        .sidebar-link:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.06);
         }
-        .ant-col-12 {
-            flex: 0 0 50%;
-            max-width: 50%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        .ant-col-24 {
-            flex: 0 0 100%;
-            max-width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        @media (max-width: 768px) {
-            .ant-col-6, .ant-col-12 {
-                flex: 0 0 100%;
-                max-width: 100%;
-            }
-            .ant-layout-content {
-                padding: 16px;
-            }
-            .header-menu {
-                display: none;
-            }
-        }
-        .ant-table table {
-            width: 100%;
-            text-align: left;
-            border-collapse: separate;
-            border-spacing: 0;
-        }
-        .ant-table th {
-            background: #fafafa;
-            color: rgba(0, 0, 0, 0.85);
+        .sidebar-link.active {
+            color: #fff;
+            background: #2563eb;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
             font-weight: 600;
-            padding: 14px 16px;
-            border-bottom: 1px solid #f0f0f0;
         }
-        .ant-table td {
-            padding: 14px 16px;
-            border-bottom: 1px solid #f0f0f0;
-            transition: background 0.2s;
+        .sidebar-link i {
+            font-size: 1.1rem;
         }
-        .ant-table tr:hover td {
-            background: #fafafa;
+        .sidebar-user {
+            padding: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.2);
         }
-        .ant-form-item {
-            margin-bottom: 20px;
+        /* Right Content Area */
+        .admin-main {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            background: #f8fafc;
         }
-        .ant-form-item-label {
-            font-size: 14px;
+        .top-navbar {
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+        .content-body {
+            flex: 1;
+            padding: 24px 28px;
+        }
+        .footer {
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            padding: 16px 28px;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+        /* Components */
+        .card {
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+        }
+        .card-header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            border-top-left-radius: 0.75rem !important;
+            border-top-right-radius: 0.75rem !important;
+        }
+        .btn {
+            border-radius: 0.5rem;
             font-weight: 500;
-            margin-bottom: 6px;
-            display: block;
-            color: rgba(0, 0, 0, 0.85);
         }
-        .ant-form-item-label.required::before {
-            content: "*";
-            color: #ff4d4f;
-            margin-right: 4px;
-            font-family: SimSun, sans-serif;
-        }
-        .ant-input, select.ant-input {
-            width: 100%;
-            height: 38px;
-            padding: 4px 11px;
-            border: 1px solid #d9d9d9;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: all 0.2s;
-            box-sizing: border-box;
-            background-color: #fff;
-        }
-        .ant-input:focus, select.ant-input:focus {
-            border-color: #4096ff;
-            box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.2);
-            outline: 0;
-        }
-        .ant-input-error {
-            border-color: #ff4d4f !important;
-        }
-        .ant-input-error-msg {
-            color: #ff4d4f;
-            font-size: 12px;
-            margin-top: 4px;
-            display: block;
-        }
-        .ant-btn {
-            border-radius: 6px;
-            font-weight: 500;
+        .btn-action {
+            width: 32px;
+            height: 32px;
+            padding: 0;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            height: 36px;
-            padding: 4px 15px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 1px solid #d9d9d9;
-            background: #fff;
-            color: rgba(0, 0, 0, 0.85);
-            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
         }
-        .ant-btn:hover {
-            color: #4096ff;
-            border-color: #4096ff;
+        .badge {
+            font-weight: 600;
+            padding: 0.4em 0.7em;
+            border-radius: 0.375rem;
         }
-        .ant-btn-primary {
-            background: #1677ff;
-            border-color: #1677ff;
-            color: #fff;
+        .table > :not(caption) > * > * {
+            padding: 0.85rem 0.75rem;
+            vertical-align: middle;
         }
-        .ant-btn-primary:hover {
-            background: #4096ff;
-            border-color: #4096ff;
-            color: #fff;
-        }
-        .ant-btn-danger {
-            color: #ff4d4f;
-            border-color: #ff4d4f;
-        }
-        .ant-btn-danger:hover {
-            background: #ff4d4f;
-            color: #fff;
-        }
-        .ant-btn-sm {
-            height: 28px;
-            padding: 2px 10px;
-            font-size: 12px;
-            border-radius: 4px;
-        }
-        .ant-tag {
-            display: inline-block;
-            padding: 1px 8px;
-            font-size: 12px;
-            line-height: 20px;
-            border-radius: 4px;
-            border: 1px solid #d9d9d9;
-            background: #fafafa;
-            color: rgba(0, 0, 0, 0.85);
-        }
-        .ant-tag-blue {
-            color: #0958d9;
-            background: #e6f4ff;
-            border-color: #91caff;
-        }
-        .ant-tag-green {
-            color: #389e0d;
-            background: #f6ffed;
-            border-color: #b7eb8f;
-        }
-        .ant-tag-orange {
-            color: #d46b08;
-            background: #fff7e6;
-            border-color: #ffd591;
-        }
-        .ant-tag-red {
-            color: #cf1322;
-            background: #fff1f0;
-            border-color: #ffa39e;
-        }
-        .ant-tag-purple {
-            color: #531dab;
-            background: #f9f0ff;
-            border-color: #d3adf7;
-        }
-        .ant-alert {
+        .stat-icon {
+            width: 48px;
+            height: 48px;
             display: flex;
             align-items: center;
-            padding: 10px 16px;
-            margin-bottom: 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            gap: 10px;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 1.5rem;
         }
-        .ant-alert-success {
-            background-color: #f6ffed;
-            border: 1px solid #b7eb8f;
-            color: rgba(0, 0, 0, 0.85);
-        }
-        .ant-alert-success i {
-            color: #52c41a;
-            font-size: 16px;
-        }
-        .ant-alert-error {
-            background-color: #fff2f0;
-            border: 1px solid #ffccc7;
-            color: rgba(0, 0, 0, 0.85);
-        }
-        .ant-alert-error i {
-            color: #ff4d4f;
-            font-size: 16px;
+        @media (max-width: 992px) {
+            .admin-layout {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                min-height: auto;
+            }
         }
     </style>
     @yield('styles')
 </head>
 <body>
-    <div class="ant-layout">
-        <!-- Ant Design Header -->
-        <header class="ant-layout-header">
-            <div style="display: flex; align-items: center;">
-                <a href="{{ route('medicines.index') }}" class="header-brand">
-                    <div class="brand-icon">
-                        <i class="fa-solid fa-capsules"></i>
+    @auth
+        <div class="admin-layout">
+            <!-- Left Sidebar Navigation -->
+            <aside class="sidebar">
+                <a href="{{ route('dashboard') }}" class="sidebar-brand">
+                    <div class="sidebar-brand-icon">
+                        <i class="bi bi-capsule-pill"></i>
                     </div>
-                    <span>PharmaCare</span>
+                    <div class="sidebar-brand-text">
+                        <h6>PharmaCare</h6>
+                        <small>Hệ Thống Quản Lý Kho</small>
+                    </div>
                 </a>
 
-                @auth
-                    <nav class="header-menu">
-                        <a href="{{ route('medicines.create') }}" class="{{ request()->routeIs('medicines.create') ? 'active' : '' }}">
-                            <i class="fa-solid fa-plus-circle"></i> Thêm Thuốc Mới
-                        </a>
-                    </nav>
-                @endauth
-            </div>
+                <div class="sidebar-nav">
+                    <div class="nav-category">Hệ Thống</div>
+                    <a href="{{ route('dashboard') }}" class="sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                        <i class="bi bi-speedometer2"></i>
+                        <span>Tổng Quan</span>
+                    </a>
 
-            <div class="header-user">
-                @auth
-                    <span class="ant-tag ant-tag-blue" style="margin: 0; font-size: 13px; padding: 2px 10px;">
-                        <i class="fa-solid fa-shield-halved" style="margin-right: 4px;"></i> {{ Auth::user()->name }}
-                    </span>
-                    <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
+                    <div class="nav-category">Quản Lý</div>
+                    <a href="{{ route('medicines.index') }}" class="sidebar-link {{ request()->routeIs('medicines.*') ? 'active' : '' }}">
+                        <i class="bi bi-prescription2"></i>
+                        <span>Quản Lý Thuốc</span>
+                    </a>
+
+                    <a href="{{ route('categories.index') }}" class="sidebar-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">
+                        <i class="bi bi-tags"></i>
+                        <span>Danh Mục Thuốc</span>
+                    </a>
+                </div>
+
+                <!-- User Profile & Logout at Bottom -->
+                <div class="sidebar-user">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 34px; height: 34px; font-size: 0.85rem;">
+                                {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                            </div>
+                            <div style="line-height: 1.2;">
+                                <div class="fw-semibold text-white small">{{ Auth::user()->name }}</div>
+                                <span class="badge bg-warning text-dark" style="font-size: 0.65rem;">Quản trị viên</span>
+                            </div>
+                        </div>
+                    </div>
+                    <form action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class="ant-btn ant-btn-sm" style="background: rgba(255,255,255,0.15); color: #fff; border-color: transparent;" onclick="return confirm('Bạn có chắc chắn muốn đăng xuất không?')">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng Xuất
+                        <button type="submit" class="btn btn-outline-danger btn-sm w-100 d-flex align-items-center justify-content-center gap-2" onclick="return confirm('Bạn có chắc chắn muốn đăng xuất không?')">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Đăng Xuất</span>
                         </button>
                     </form>
-                @else
-                    <a href="{{ route('login') }}" class="ant-btn ant-btn-sm ant-btn-primary">
-                        <i class="fa-solid fa-arrow-right-to-bracket"></i> Đăng Nhập
-                    </a>
-                    <a href="{{ route('register') }}" class="ant-btn ant-btn-sm" style="background: transparent; color: #fff; border-color: rgba(255,255,255,0.4);">
-                        <i class="fa-solid fa-user-plus"></i> Đăng Ký
-                    </a>
-                @endauth
-            </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="ant-layout-content">
-            <!-- Flash Message Alerts -->
-            @if(session('success'))
-                <div class="ant-alert ant-alert-success">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <div>{{ session('success') }}</div>
                 </div>
-            @endif
+            </aside>
 
-            @if(session('error'))
-                <div class="ant-alert ant-alert-error">
-                    <i class="fa-solid fa-circle-xmark"></i>
-                    <div>{{ session('error') }}</div>
-                </div>
-            @endif
-
-            @if($errors->any())
-                <div class="ant-alert ant-alert-error" style="align-items: flex-start;">
-                    <i class="fa-solid fa-circle-exclamation" style="margin-top: 2px;"></i>
-                    <div>
-                        <div style="font-weight: 600; margin-bottom: 4px;">Vui lòng kiểm tra lại thông tin:</div>
-                        <ul style="margin: 0; padding-left: 18px;">
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+            <!-- Right Main Content Area -->
+            <div class="admin-main">
+                <!-- Top Navbar -->
+                <header class="top-navbar">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="text-secondary small">
+                            <i class="bi bi-house-door me-1"></i> Trang Quản Trị &gt;
+                            <strong class="text-dark">@yield('title', 'Hệ Thống')</strong>
+                        </span>
                     </div>
-                </div>
-            @endif
+                    <div class="d-flex align-items-center gap-3">
+                        <span class="badge bg-success-subtle text-success-emphasis border px-3 py-2">
+                            <i class="bi bi-shield-check me-1"></i> Hệ thống đang hoạt động
+                        </span>
+                        <div class="text-muted small d-none d-sm-block">
+                            <i class="bi bi-calendar3 me-1"></i> {{ date('d/m/Y') }}
+                        </div>
+                    </div>
+                </header>
 
-            @yield('content')
-        </main>
+                <!-- Content Body -->
+                <main class="content-body">
+                    <!-- Flash Messages -->
+                    @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show shadow-sm d-flex align-items-center" role="alert">
+                            <i class="bi bi-check-circle-fill fs-5 me-2"></i>
+                            <div>{{ session('success') }}</div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
 
-        <!-- Ant Design Footer -->
-        <footer class="ant-layout-footer">
-            <div>PharmaCare &copy; {{ date('Y') }} - Hệ Thống Quản Lý Kho Thuốc</div>
-            <div style="margin-top: 4px; font-size: 12px; color: rgba(0,0,0,0.35);">
-                Được xây dựng bởi nhóm số 10
+                    @if(session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show shadow-sm d-flex align-items-center" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill fs-5 me-2"></i>
+                            <div>{{ session('error') }}</div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
+                    @if($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+                            <div class="fw-bold mb-1"><i class="bi bi-x-circle-fill me-1"></i> Vui lòng kiểm tra lại thông tin:</div>
+                            <ul class="mb-0 ps-3">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
+                    @yield('content')
+                </main>
+
+                <!-- Footer -->
+                <footer class="footer">
+                    <div>&copy; {{ date('Y') }} <strong>PharmaCare</strong> - Quản Lý Kho Dược Phẩm </div>
+                </footer>
             </div>
-        </footer>
-    </div>
+        </div>
+    @else
+        <!-- Guest View (Login / Register) -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm py-2">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('login') }}">
+                    <span class="bg-white text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 34px; height: 34px;">
+                        <i class="bi bi-capsule-pill fs-5"></i>
+                    </span>
+                    <span>PharmaCare <small class="fw-normal fs-6 opacity-75">| Quản Lý Hiệu Thuốc</small></span>
+                </a>
+                <div class="ms-auto d-flex gap-2">
+                    <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm">Đăng Nhập</a>
+                    <a href="{{ route('register') }}" class="btn btn-light btn-sm text-primary fw-semibold">Đăng Ký</a>
+                </div>
+            </div>
+        </nav>
+
+        <main class="py-4">
+            <div class="container">
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show shadow-sm d-flex align-items-center" role="alert">
+                        <i class="bi bi-check-circle-fill fs-5 me-2"></i>
+                        <div>{{ session('success') }}</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show shadow-sm d-flex align-items-center" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill fs-5 me-2"></i>
+                        <div>{{ session('error') }}</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                @yield('content')
+            </div>
+        </main>
+    @endauth
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     @yield('scripts')
 </body>
 </html>

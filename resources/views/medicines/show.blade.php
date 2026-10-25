@@ -3,107 +3,98 @@
 @section('title', 'Chi Tiết Thuốc: ' . $medicine->name)
 
 @section('content')
-<div style="max-width: 860px; margin: 0 auto;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <a href="{{ route('medicines.index') }}" class="ant-btn ant-btn-sm">
-            <i class="fa-solid fa-arrow-left"></i> Quay Lại Danh Sách
-        </a>
-        <div style="display: flex; gap: 8px;">
-            <a href="{{ route('medicines.edit', $medicine) }}" class="ant-btn ant-btn-sm" style="color: #faad14; border-color: #faad14;">
-                <i class="fa-regular fa-pen-to-square"></i> Chỉnh Sửa
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <a href="{{ route('medicines.index') }}" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left me-1"></i> Quay Lại Danh Sách
             </a>
-            <form action="{{ route('medicines.destroy', $medicine) }}" method="POST" style="margin: 0;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa thuốc {{ $medicine->name }} không?')">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="ant-btn ant-btn-sm ant-btn-danger">
-                    <i class="fa-regular fa-trash-can"></i> Xóa
-                </button>
-            </form>
+            <div class="d-flex gap-2">
+                <a href="{{ route('medicines.edit', $medicine) }}" class="btn btn-warning btn-sm text-dark fw-semibold">
+                    <i class="bi bi-pencil-square me-1"></i> Chỉnh Sửa
+                </a>
+                <form action="{{ route('medicines.destroy', $medicine) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa thuốc {{ $medicine->name }} không?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm fw-semibold">
+                        <i class="bi bi-trash me-1"></i> Xóa
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <div class="ant-card">
-        <div class="ant-card-body" style="padding: 32px;">
-            <!-- Header section -->
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 24px; border-bottom: 1px solid #f0f0f0; margin-bottom: 24px;">
-                <div>
-                    <span class="ant-tag ant-tag-blue" style="font-size: 13px; margin-bottom: 8px;">{{ $medicine->category }}</span>
-                    <h1 style="margin: 0 0 6px 0; font-size: 26px; font-weight: 600; color: rgba(0, 0, 0, 0.88);">{{ $medicine->name }}</h1>
-                    <div style="font-size: 13px; color: rgba(0,0,0,0.45);">
-                        Mã định danh: <span class="ant-tag" style="font-family: monospace;">{{ $medicine->code }}</span>
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-4">
+                <div class="d-flex flex-wrap align-items-start justify-content-between gap-3 pb-3 border-bottom mb-4">
+                    <div>
+                        <span class="badge bg-info-subtle text-info-emphasis fs-6 mb-2">
+                            <i class="bi bi-tag-fill me-1"></i> {{ $medicine->category->name ?? 'Chưa phân loại' }}
+                        </span>
+                        <h3 class="fw-bold mb-1 text-dark">{{ $medicine->name }}</h3>
+                        <div class="text-muted small">
+                            Mã thuốc hệ thống: <span class="badge bg-secondary-subtle text-secondary-emphasis font-monospace">{{ $medicine->code }}</span>
+                        </div>
+                    </div>
+                    <div class="text-md-end">
+                        <div class="text-muted small">Đơn giá bán</div>
+                        <h3 class="fw-bold text-success mb-0">{{ $medicine->formatted_price }}</h3>
+                        <small class="text-muted">/ {{ $medicine->unit }}</small>
                     </div>
                 </div>
-                <div style="text-align: right;">
-                    <div style="font-size: 12px; color: rgba(0,0,0,0.45); text-transform: uppercase;">Đơn giá niêm yết</div>
-                    <div style="font-size: 26px; font-weight: 700; color: #52c41a; margin-top: 2px;">{{ $medicine->formatted_price }}</div>
-                    <div style="font-size: 12px; color: rgba(0,0,0,0.45);">/ {{ $medicine->unit }}</div>
-                </div>
-            </div>
 
-            <!-- Indicators Grid -->
-            <div class="ant-grid-row" style="margin-bottom: 24px;">
-                <div class="ant-col-12">
-                    <div style="background: #fafafa; border: 1px solid #f0f0f0; border-radius: 8px; padding: 16px;">
-                        <div style="font-size: 13px; color: rgba(0,0,0,0.45); margin-bottom: 6px;">
-                            <i class="fa-solid fa-boxes-packing" style="margin-right: 4px;"></i> Tình Trạng Tồn Kho
-                        </div>
-                        <div style="display: flex; align-items: center; justify-content: space-between;">
-                            <div>
-                                <span style="font-size: 24px; font-weight: 600; color: rgba(0,0,0,0.85);">{{ $medicine->stock }}</span>
-                                <span style="color: rgba(0,0,0,0.45); font-size: 14px; margin-left: 4px;">({{ $medicine->unit }})</span>
-                            </div>
-                            <div>
+                <!-- Status indicators -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <div class="p-3 rounded bg-light border">
+                            <div class="text-muted small mb-1"><i class="bi bi-boxes me-1"></i> Tình Trạng Tồn Kho</div>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="fs-4 fw-bold">{{ $medicine->stock }}</span>
+                                <span class="text-muted">({{ $medicine->unit }})</span>
                                 @if($medicine->stock <= 0)
-                                    <span class="ant-tag ant-tag-red">Hết hàng</span>
+                                    <span class="badge bg-danger ms-auto">Hết hàng</span>
                                 @elseif($medicine->stock <= 10)
-                                    <span class="ant-tag ant-tag-orange">Cảnh báo: Sắp hết kho!</span>
+                                    <span class="badge bg-warning text-dark ms-auto">Cảnh báo: Sắp hết kho!</span>
                                 @else
-                                    <span class="ant-tag ant-tag-green">Kho ổn định</span>
+                                    <span class="badge bg-success ms-auto">Kho ổn định</span>
                                 @endif
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="ant-col-12">
-                    <div style="background: #fafafa; border: 1px solid #f0f0f0; border-radius: 8px; padding: 16px;">
-                        <div style="font-size: 13px; color: rgba(0,0,0,0.45); margin-bottom: 6px;">
-                            <i class="fa-regular fa-calendar-check" style="margin-right: 4px;"></i> Hạn Sử Dụng
-                        </div>
-                        <div style="display: flex; align-items: center; justify-content: space-between;">
-                            <span style="font-size: 24px; font-weight: 600; color: rgba(0,0,0,0.85);">{{ $medicine->expiry_date->format('d/m/Y') }}</span>
-                            <div>
+                    <div class="col-md-6">
+                        <div class="p-3 rounded bg-light border">
+                            <div class="text-muted small mb-1"><i class="bi bi-calendar-check me-1"></i> Hạn Sử Dụng</div>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="fs-4 fw-bold">{{ $medicine->expiry_date->format('d/m/Y') }}</span>
                                 @if($medicine->isExpired())
-                                    <span class="ant-tag ant-tag-red">ĐÃ HẾT HẠN</span>
+                                    <span class="badge bg-danger ms-auto">ĐÃ HẾT HẠN</span>
                                 @elseif($medicine->isExpiringSoon())
-                                    <span class="ant-tag ant-tag-orange">SẮP HẾT HẠN</span>
+                                    <span class="badge bg-warning text-dark ms-auto">Cảnh báo: Sắp hết hạn!</span>
                                 @else
-                                    <span class="ant-tag ant-tag-green">Còn hạn tốt</span>
+                                    <span class="badge bg-success ms-auto">Còn hạn tốt</span>
                                 @endif
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Description -->
-            <div style="margin-bottom: 24px;">
-                <h4 style="margin: 0 0 10px 0; font-size: 15px; font-weight: 600; color: rgba(0,0,0,0.88);">
-                    <i class="fa-regular fa-file-lines" style="color: #1677ff; margin-right: 6px;"></i> Mô Tả & Hướng Dẫn Sử Dụng
-                </h4>
-                <div style="background: #fafafa; border: 1px solid #f0f0f0; border-radius: 8px; padding: 16px; font-size: 14px; line-height: 1.6; color: rgba(0,0,0,0.75); white-space: pre-line;">
-                    @if($medicine->description)
-                        {{ $medicine->description }}
-                    @else
-                        <span style="color: rgba(0,0,0,0.35); font-style: italic;">Chưa có mô tả chi tiết cho loại thuốc này.</span>
-                    @endif
+                <!-- Description & Guide -->
+                <div class="mb-4">
+                    <h6 class="fw-bold text-dark"><i class="bi bi-card-text me-1 text-primary"></i> Mô Tả & Hướng Dẫn Sử Dụng</h6>
+                    <div class="p-3 rounded bg-light border">
+                        @if($medicine->description)
+                            <p class="mb-0 text-secondary" style="white-space: pre-line;">{{ $medicine->description }}</p>
+                        @else
+                            <span class="text-muted fst-italic">Chưa có thông tin mô tả chi tiết cho loại thuốc này.</span>
+                        @endif
+                    </div>
                 </div>
-            </div>
 
-            <!-- Audit info -->
-            <div style="display: flex; justify-content: space-between; font-size: 12px; color: rgba(0,0,0,0.45); padding-top: 16px; border-top: 1px solid #f0f0f0;">
-                <div>Ngày nhập kho: <strong>{{ $medicine->created_at ? $medicine->created_at->format('d/m/Y H:i') : 'N/A' }}</strong></div>
-                <div>Cập nhật lần cuối: <strong>{{ $medicine->updated_at ? $medicine->updated_at->format('d/m/Y H:i') : 'N/A' }}</strong></div>
+                <!-- Audit info -->
+                <div class="d-flex justify-content-between text-muted small pt-3 border-top">
+                    <div>Ngày nhập kho: <strong>{{ $medicine->created_at ? $medicine->created_at->format('d/m/Y H:i') : 'N/A' }}</strong></div>
+                    <div>Cập nhật lần cuối: <strong>{{ $medicine->updated_at ? $medicine->updated_at->format('d/m/Y H:i') : 'N/A' }}</strong></div>
+                </div>
             </div>
         </div>
     </div>

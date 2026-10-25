@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Medicine;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -9,36 +10,59 @@ use Illuminate\Http\Request;
 class MedicineController extends Controller
 {
     /**
-     * Hiển thị danh sách thuốc (CRUD - Read)
+     * Hiển thị danh sách thuốc kèm Tìm kiếm và Lọc
      */
-    public function index()
+    public function index(Request $request)
     {
-        $medicines = Medicine::orderBy('created_at', 'desc')->paginate(10);
+        $query = Medicine::with('category');
 
-        return view('medicines.index', compact('medicines'));
+        // Tìm kiếm theo tên hoặc mã thuốc
+        if ($request->filled('search')) {
+            $search = trim($request->search);
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('code', 'like', "%{$search}%");
+            });
+        }
+
+        // Lọc theo danh mục
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        // Lọc theo tình trạng kho
+        if ($request->filled('stock_status')) {
+            if ($request->stock_status === 'low') {
+                $query->where('stock', '<=', 10)->where('stock', '>', 0);
+            } elseif ($request->stock_status === 'out') {
+                $query->where('stock', '<=', 0);
+            }
+        }
+
+        // Lọc theo tình trạng hạn sử dụng
+        if ($request->filled('expiry_status')) {
+            if ($request->expiry_status === 'expired') {
+                $query->where('expiry_date', '<', Carbon::today());
+            } elseif ($request->expiry_status === 'expiring') {
+                $query->whereBetween('expiry_date', [Carbon::today(), Carbon::today()->addDays(30)]);
+            }
+        }
+
+        $medicines = $query->orderBy('created_at', 'desc')->paginate(10)->withQueryString();
+        $categories = Category::orderBy('name')->get();
+
+        return view('medicines.index', compact('medicines', 'categories'));
     }
 
     /**
-     * Hiển thị form thêm mới thuốc
+     * Form thêm thuốc mới
      */
     public function create()
     {
-        $defaultCategories = [
-            'Kháng sinh',
-            'Giảm đau - Hạ sốt',
-            'Chống viêm',
-            'Tiêu hóa - Dạ dày',
-            'Hô hấp - Trị ho',
-            'Vitamin & Khoáng chất',
-            'Tim mạch & Huyết áp',
-            'Da liễu - Dị ứng',
-            'Thần kinh',
-            'Khác',
-        ];
+        $categories = Category::orderBy('name')->get();
+        $defaultUnits = ['Viên', 'Vỉ', 'Hộp', 'Chai', 'Gói', 'Tuýp', 'Ống', 'Lọ'];
 
-        $defaultUnits = ['Viên', 'Vỉ', 'Hộp', 'Chai', 'Gói', 'Tuýp', 'Ống'];
-
-        return view('medicines.create', compact('defaultCategories', 'defaultUnits'));
+        return view('medicines.create', compact('categories', 'defaultUnits'));
     }
 
     /**
@@ -49,7 +73,7 @@ class MedicineController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'code' => ['required', 'string', 'max:50', 'unique:medicines,code'],
-            'category' => ['required', 'string', 'max:100'],
+            'category_id' => ['required', 'exists:categories,id'],
             'unit' => ['required', 'string', 'max:50'],
             'price' => ['required', 'numeric', 'min:0'],
             'stock' => ['required', 'integer', 'min:0'],
@@ -59,7 +83,8 @@ class MedicineController extends Controller
             'name.required' => 'Vui lòng nhập tên thuốc.',
             'code.required' => 'Vui lòng nhập mã thuốc.',
             'code.unique' => 'Mã thuốc này đã tồn tại trong hệ thống.',
-            'category.required' => 'Vui lòng chọn hoặc nhập nhóm thuốc.',
+            'category_id.required' => 'Vui lòng chọn danh mục thuốc.',
+            'category_id.exists' => 'Danh mục thuốc không hợp lệ.',
             'unit.required' => 'Vui lòng chọn hoặc nhập đơn vị tính.',
             'price.required' => 'Vui lòng nhập giá bán.',
             'price.numeric' => 'Giá bán phải là số hợp lệ.',
@@ -82,30 +107,19 @@ class MedicineController extends Controller
      */
     public function show(Medicine $medicine)
     {
+        $medicine->load('category');
         return view('medicines.show', compact('medicine'));
     }
 
     /**
-     * Hiển thị form chỉnh sửa thông tin thuốc
+     * Form chỉnh sửa thông tin thuốc
      */
     public function edit(Medicine $medicine)
     {
-        $defaultCategories = [
-            'Kháng sinh',
-            'Giảm đau - Hạ sốt',
-            'Chống viêm',
-            'Tiêu hóa - Dạ dày',
-            'Hô hấp - Trị ho',
-            'Vitamin & Khoáng chất',
-            'Tim mạch & Huyết áp',
-            'Da liễu - Dị ứng',
-            'Thần kinh',
-            'Khác',
-        ];
+        $categories = Category::orderBy('name')->get();
+        $defaultUnits = ['Viên', 'Vỉ', 'Hộp', 'Chai', 'Gói', 'Tuýp', 'Ống', 'Lọ'];
 
-        $defaultUnits = ['Viên', 'Vỉ', 'Hộp', 'Chai', 'Gói', 'Tuýp', 'Ống'];
-
-        return view('medicines.edit', compact('medicine', 'defaultCategories', 'defaultUnits'));
+        return view('medicines.edit', compact('medicine', 'categories', 'defaultUnits'));
     }
 
     /**
@@ -116,7 +130,7 @@ class MedicineController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'code' => ['required', 'string', 'max:50', 'unique:medicines,code,' . $medicine->id],
-            'category' => ['required', 'string', 'max:100'],
+            'category_id' => ['required', 'exists:categories,id'],
             'unit' => ['required', 'string', 'max:50'],
             'price' => ['required', 'numeric', 'min:0'],
             'stock' => ['required', 'integer', 'min:0'],
@@ -126,7 +140,8 @@ class MedicineController extends Controller
             'name.required' => 'Vui lòng nhập tên thuốc.',
             'code.required' => 'Vui lòng nhập mã thuốc.',
             'code.unique' => 'Mã thuốc này đã thuộc về thuốc khác.',
-            'category.required' => 'Vui lòng chọn hoặc nhập nhóm thuốc.',
+            'category_id.required' => 'Vui lòng chọn danh mục thuốc.',
+            'category_id.exists' => 'Danh mục thuốc không hợp lệ.',
             'unit.required' => 'Vui lòng chọn hoặc nhập đơn vị tính.',
             'price.required' => 'Vui lòng nhập giá bán.',
             'price.numeric' => 'Giá bán phải là số hợp lệ.',

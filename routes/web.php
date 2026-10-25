@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MedicineController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,9 +27,11 @@ Route::middleware('admin')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/', function () {
-        return redirect()->route('medicines.index');
+        return redirect()->route('dashboard');
     });
 
-    Route::resource('medicines', MedicineController::class);
-});
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::resource('medicines', MedicineController::class);
+    Route::resource('categories', CategoryController::class);
+});
