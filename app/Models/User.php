@@ -2,47 +2,81 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
         'email',
+        'phone',
+        'role',
+        'status',
+        'salary',
         'password',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'salary' => 'decimal:2',
         ];
+    }
+
+    /**
+     * Danh sách hóa đơn do nhân viên này lập
+     */
+    public function invoices(): HasMany
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
+    /**
+     * Danh sách phiếu kho do nhân viên này lập
+     */
+    public function warehouseReceipts(): HasMany
+    {
+        return $this->hasMany(WarehouseReceipt::class);
+    }
+
+    /**
+     * Kiểm tra có phải quản trị viên không
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    /**
+     * Tên chức vụ bằng tiếng Việt
+     */
+    public function getRoleNameAttribute(): string
+    {
+        return match($this->role) {
+            'admin' => 'Quản trị viên (Admin)',
+            'pharmacist' => 'Dược sĩ bán hàng',
+            'warehouse' => 'Thủ kho dược phẩm',
+            default => 'Nhân viên',
+        };
+    }
+
+    /**
+     * Định dạng lương cơ bản
+     */
+    public function getFormattedSalaryAttribute(): string
+    {
+        return number_format($this->salary, 0, ',', '.') . ' VNĐ';
     }
 }

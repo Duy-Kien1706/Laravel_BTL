@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Medicine extends Model
 {
@@ -33,6 +34,22 @@ class Medicine extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Chi tiết các hóa đơn chứa loại thuốc này
+     */
+    public function invoiceDetails(): HasMany
+    {
+        return $this->hasMany(InvoiceDetail::class);
+    }
+
+    /**
+     * Chi tiết các phiếu kho liên quan đến loại thuốc này
+     */
+    public function warehouseReceiptDetails(): HasMany
+    {
+        return $this->hasMany(WarehouseReceiptDetail::class);
     }
 
     /**

@@ -3,8 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Invoice;
+use App\Models\InvoiceDetail;
 use App\Models\Medicine;
 use App\Models\User;
+use App\Models\WarehouseReceipt;
+use App\Models\WarehouseReceiptDetail;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -16,11 +20,39 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Tạo tài khoản Admin mặc định
-        User::firstOrCreate(
+        // 1. Tạo 3 tài khoản nhân viên với các vai trò khác nhau
+        $admin = User::updateOrCreate(
             ['email' => 'admin@gmail.com'],
             [
-                'name' => 'Quản Trị Viên (Admin)',
+                'name' => 'Nguyễn Văn Quản Lý (Admin)',
+                'phone' => '0988123456',
+                'role' => 'admin',
+                'status' => 'active',
+                'salary' => 18000000,
+                'password' => Hash::make('12345678'),
+            ]
+        );
+
+        $pharmacist = User::updateOrCreate(
+            ['email' => 'duocsi@gmail.com'],
+            [
+                'name' => 'Trần Thị Thu Trang (Dược Sĩ)',
+                'phone' => '0977234567',
+                'role' => 'pharmacist',
+                'status' => 'active',
+                'salary' => 11000000,
+                'password' => Hash::make('12345678'),
+            ]
+        );
+
+        $warehouseStaff = User::updateOrCreate(
+            ['email' => 'thukho@gmail.com'],
+            [
+                'name' => 'Lê Hoàng Minh (Thủ Kho)',
+                'phone' => '0912345678',
+                'role' => 'warehouse',
+                'status' => 'active',
+                'salary' => 9500000,
                 'password' => Hash::make('12345678'),
             ]
         );
@@ -55,7 +87,7 @@ class DatabaseSeeder extends Seeder
 
         $categories = [];
         foreach ($categoriesData as $cat) {
-            $category = Category::firstOrCreate(['name' => $cat['name']], $cat);
+            $category = Category::updateOrCreate(['name' => $cat['name']], $cat);
             $categories[$cat['name']] = $category->id;
         }
 
@@ -183,11 +215,99 @@ class DatabaseSeeder extends Seeder
             ],
         ];
 
+        $createdMedicines = [];
         foreach ($sampleMedicines as $med) {
-            Medicine::updateOrCreate(
+            $createdMedicines[$med['code']] = Medicine::updateOrCreate(
                 ['code' => $med['code']],
                 $med
             );
         }
+
+        // 4. Tạo mẫu 2 Phiếu nhập kho (Warehouse Receipts)
+        $receipt1 = WarehouseReceipt::updateOrCreate(
+            ['code' => 'NK-20261028-001'],
+            [
+                'type' => 'import',
+                'supplier' => 'Công ty Cổ phần Dược Hậu Giang (DHG Pharma)',
+                'user_id' => $warehouseStaff->id,
+                'total_amount' => 4500000,
+                'note' => 'Nhập kho đợt định kỳ tháng 10/2026',
+                'created_at' => Carbon::now()->subDays(1),
+            ]
+        );
+
+        WarehouseReceiptDetail::updateOrCreate(
+            ['warehouse_receipt_id' => $receipt1->id, 'medicine_id' => $createdMedicines['PARA500']->id],
+            [
+                'quantity' => 100,
+                'unit_price' => 30000,
+                'total_price' => 3000000,
+            ]
+        );
+
+        WarehouseReceiptDetail::updateOrCreate(
+            ['warehouse_receipt_id' => $receipt1->id, 'medicine_id' => $createdMedicines['DECOLF']->id],
+            [
+                'quantity' => 100,
+                'unit_price' => 15000,
+                'total_price' => 1500000,
+            ]
+        );
+
+        // 5. Tạo mẫu 3 Hóa đơn bán thuốc (Invoices)
+        $invoice1 = Invoice::updateOrCreate(
+            ['code' => 'HD-20261029-001'],
+            [
+                'customer_name' => 'Anh Hoàng Văn Tuấn',
+                'customer_phone' => '0933456789',
+                'user_id' => $pharmacist->id,
+                'total_amount' => 156000,
+                'payment_method' => 'cash',
+                'status' => 'paid',
+                'note' => 'Uống sau ăn no, uống nhiều nước',
+                'created_at' => Carbon::now()->subHours(4),
+            ]
+        );
+
+        InvoiceDetail::updateOrCreate(
+            ['invoice_id' => $invoice1->id, 'medicine_id' => $createdMedicines['PANEXT']->id],
+            [
+                'quantity' => 2,
+                'unit_price' => 52000,
+                'total_price' => 104000,
+            ]
+        );
+
+        InvoiceDetail::updateOrCreate(
+            ['invoice_id' => $invoice1->id, 'medicine_id' => $createdMedicines['SALONP']->id],
+            [
+                'quantity' => 2,
+                'unit_price' => 22000,
+                'total_price' => 44000,
+            ]
+        );
+
+        $invoice2 = Invoice::updateOrCreate(
+            ['code' => 'HD-20261029-002'],
+            [
+                'customer_name' => 'Chị Lê Thị Mai',
+                'customer_phone' => '0944567890',
+                'user_id' => $pharmacist->id,
+                'total_amount' => 176000,
+                'payment_method' => 'transfer',
+                'status' => 'paid',
+                'note' => 'Berocca uống sáng sau ăn',
+                'created_at' => Carbon::now()->subHours(1),
+            ]
+        );
+
+        InvoiceDetail::updateOrCreate(
+            ['invoice_id' => $invoice2->id, 'medicine_id' => $createdMedicines['BEROCCA']->id],
+            [
+                'quantity' => 2,
+                'unit_price' => 88000,
+                'total_price' => 176000,
+            ]
+        );
     }
 }

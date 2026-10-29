@@ -3,7 +3,10 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\StaffController;
+use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,6 +35,17 @@ Route::middleware('admin')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // 1. Quản lý Thuốc & Danh mục
     Route::resource('medicines', MedicineController::class);
     Route::resource('categories', CategoryController::class);
+
+    // 2. Quản lý Kho (Nhập / Xuất kho)
+    Route::resource('warehouse', WarehouseController::class)->only(['index', 'create', 'store', 'show']);
+
+    // 3. Quản lý Hóa Đơn (Bán hàng)
+    Route::resource('invoices', InvoiceController::class)->only(['index', 'create', 'store', 'show']);
+    Route::post('invoices/{invoice}/cancel', [InvoiceController::class, 'cancel'])->name('invoices.cancel');
+
+    // 4. Quản lý Nhân Viên
+    Route::resource('staff', StaffController::class);
 });

@@ -205,6 +205,22 @@
                 min-height: auto;
             }
         }
+        @media print {
+            .sidebar, .top-navbar, .footer, .btn, .alert, .no-print {
+                display: none !important;
+            }
+            .admin-layout, .admin-main, .content-body {
+                padding: 0 !important;
+                margin: 0 !important;
+                background: #fff !important;
+                width: 100% !important;
+                display: block !important;
+            }
+            .card {
+                border: 1px solid #ddd !important;
+                box-shadow: none !important;
+            }
+        }
     </style>
     @yield('styles')
 </head>
@@ -230,7 +246,7 @@
                         <span>Tổng Quan</span>
                     </a>
 
-                    <div class="nav-category">Quản Lý</div>
+                    <div class="nav-category">Kho Dược Phẩm</div>
                     <a href="{{ route('medicines.index') }}" class="sidebar-link {{ request()->routeIs('medicines.*') ? 'active' : '' }}">
                         <i class="bi bi-prescription2"></i>
                         <span>Quản Lý Thuốc</span>
@@ -239,6 +255,22 @@
                     <a href="{{ route('categories.index') }}" class="sidebar-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">
                         <i class="bi bi-tags"></i>
                         <span>Danh Mục Thuốc</span>
+                    </a>
+
+                    <a href="{{ route('warehouse.index') }}" class="sidebar-link {{ request()->routeIs('warehouse.*') ? 'active' : '' }}">
+                        <i class="bi bi-boxes"></i>
+                        <span>Quản Lý Kho</span>
+                    </a>
+
+                    <div class="nav-category">Bán Hàng & Nhân Sự</div>
+                    <a href="{{ route('invoices.index') }}" class="sidebar-link {{ request()->routeIs('invoices.*') ? 'active' : '' }}">
+                        <i class="bi bi-receipt"></i>
+                        <span>Quản Lý Hóa Đơn</span>
+                    </a>
+
+                    <a href="{{ route('staff.index') }}" class="sidebar-link {{ request()->routeIs('staff.*') ? 'active' : '' }}">
+                        <i class="bi bi-people-fill"></i>
+                        <span>Quản Lý Nhân Viên</span>
                     </a>
                 </div>
 
@@ -250,8 +282,8 @@
                                 {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                             </div>
                             <div style="line-height: 1.2;">
-                                <div class="fw-semibold text-white small">{{ Auth::user()->name }}</div>
-                                <span class="badge bg-warning text-dark" style="font-size: 0.65rem;">Quản trị viên</span>
+                                <div class="fw-semibold text-white small text-truncate" style="max-width: 170px;">{{ Auth::user()->name }}</div>
+                                <span class="badge bg-warning text-dark" style="font-size: 0.65rem;">{{ Auth::user()->role_name ?? 'Nhân viên' }}</span>
                             </div>
                         </div>
                     </div>
