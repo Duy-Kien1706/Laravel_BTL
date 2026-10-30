@@ -11,39 +11,37 @@
     </div>
 </div>
 
-<!-- 4 Thẻ Tài Chính, Kho & Nhân Sự -->
+<!-- 4 Thẻ Tài Chính, Nhà Cung Cấp & Nhân Sự -->
 <div class="row g-3 mb-4">
-    @if(Auth::user()->isAdmin())
-        <div class="col-sm-6 col-xl-3">
-            <div class="card h-100 border-0 bg-success-subtle text-success-emphasis shadow-sm">
-                <div class="card-body d-flex align-items-center justify-content-between p-3">
-                    <div>
-                        <div class="text-uppercase small fw-bold opacity-75">Doanh Thu Hôm Nay</div>
-                        <div class="fs-4 fw-bold mt-1 text-success">{{ number_format($stats['today_revenue'], 0, ',', '.') }} đ</div>
-                        <div class="small text-muted mt-1">Cập nhật theo ngày hiện tại</div>
-                    </div>
-                    <div class="stat-icon bg-success text-white shadow-sm">
-                        <i class="bi bi-cash-stack"></i>
-                    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="card h-100 border-0 bg-success-subtle text-success-emphasis shadow-sm">
+            <div class="card-body d-flex align-items-center justify-content-between p-3">
+                <div>
+                    <div class="text-uppercase small fw-bold opacity-75">Doanh Thu Hôm Nay</div>
+                    <div class="fs-4 fw-bold mt-1 text-success">{{ number_format($stats['today_revenue'], 0, ',', '.') }} đ</div>
+                    <div class="small text-muted mt-1">Cập nhật theo ngày hiện tại</div>
+                </div>
+                <div class="stat-icon bg-success text-white shadow-sm">
+                    <i class="bi bi-cash-stack"></i>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="col-sm-6 col-xl-3">
-            <div class="card h-100 border-0 bg-primary-subtle text-primary-emphasis shadow-sm">
-                <div class="card-body d-flex align-items-center justify-content-between p-3">
-                    <div>
-                        <div class="text-uppercase small fw-bold opacity-75">Tổng Doanh Thu Bán</div>
-                        <div class="fs-4 fw-bold mt-1 text-primary">{{ number_format($stats['total_revenue'], 0, ',', '.') }} đ</div>
-                        <div class="small text-muted mt-1">{{ number_format($stats['total_invoices']) }} hóa đơn thanh toán</div>
-                    </div>
-                    <div class="stat-icon bg-primary text-white shadow-sm">
-                        <i class="bi bi-wallet2"></i>
-                    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="card h-100 border-0 bg-primary-subtle text-primary-emphasis shadow-sm">
+            <div class="card-body d-flex align-items-center justify-content-between p-3">
+                <div>
+                    <div class="text-uppercase small fw-bold opacity-75">Tổng Doanh Thu Bán</div>
+                    <div class="fs-4 fw-bold mt-1 text-primary">{{ number_format($stats['total_revenue'], 0, ',', '.') }} đ</div>
+                    <div class="small text-muted mt-1">{{ number_format($stats['total_invoices']) }} hóa đơn thanh toán</div>
+                </div>
+                <div class="stat-icon bg-primary text-white shadow-sm">
+                    <i class="bi bi-wallet2"></i>
                 </div>
             </div>
         </div>
-    @endif
+    </div>
 
     <div class="col-sm-6 col-xl-3">
         <div class="card h-100 border-0 bg-info-subtle text-info-emphasis shadow-sm">

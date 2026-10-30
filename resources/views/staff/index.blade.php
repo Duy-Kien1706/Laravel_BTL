@@ -83,7 +83,7 @@
                                     </div>
                                     <div>
                                         <div class="fw-semibold text-dark">{{ $staff->name }}</div>
-                                        @if($staff->id === auth()->id())
+                                        @if($staff->id === Auth::id())
                                             <span class="badge bg-secondary-subtle text-secondary-emphasis" style="font-size: 0.65rem;">(Tài khoản của bạn)</span>
                                         @endif
                                     </div>
@@ -128,7 +128,7 @@
                                     <a href="{{ route('staff.edit', $staff) }}" class="btn btn-sm btn-outline-warning text-dark shadow-sm" title="Sửa thông tin">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
-                                    @if($staff->id !== auth()->id())
+                                    @if($staff->id !== Auth::id())
                                         <form action="{{ route('staff.destroy', $staff) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa nhân viên {{ $staff->name }} không?')">
                                             @csrf
                                             @method('DELETE')

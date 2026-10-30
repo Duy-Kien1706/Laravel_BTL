@@ -6,6 +6,7 @@ use App\Models\Invoice;
 use App\Models\InvoiceDetail;
 use App\Models\Medicine;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
@@ -87,7 +88,7 @@ class InvoiceController extends Controller
                 'code' => $code,
                 'customer_name' => $validated['customer_name'],
                 'customer_phone' => $validated['customer_phone'] ?? null,
-                'user_id' => auth()->id(),
+                'user_id' => Auth::id(),
                 'total_amount' => 0,
                 'payment_method' => $validated['payment_method'],
                 'status' => 'paid',
@@ -168,7 +169,7 @@ class InvoiceController extends Controller
 
             DB::commit();
 
-            return redirect()->route('invoices.show', $invoice)
+            return back()
                 ->with('success', 'Đã hủy hóa đơn ' . $invoice->code . ' và hoàn trả tồn kho thuốc thành công!');
         } catch (\Exception $e) {
             DB::rollBack();

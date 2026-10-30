@@ -262,13 +262,13 @@
                         <span>Nhà Cung Cấp</span>
                     </a>
 
-                    @if(Auth::user()->isAdmin())
-                        <div class="nav-category">Bán Hàng & Nhân Sự</div>
-                        <a href="{{ route('invoices.index') }}" class="sidebar-link {{ request()->routeIs('invoices.*') ? 'active' : '' }}">
-                            <i class="bi bi-receipt"></i>
-                            <span>Quản Lý Hóa Đơn</span>
-                        </a>
+                    <div class="nav-category">Bán Hàng & Nhân Sự</div>
+                    <a href="{{ route('invoices.index') }}" class="sidebar-link {{ request()->routeIs('invoices.*') ? 'active' : '' }}">
+                        <i class="bi bi-receipt"></i>
+                        <span>Quản Lý Hóa Đơn</span>
+                    </a>
 
+                    @if(Auth::user()->isAdmin())
                         <a href="{{ route('staff.index') }}" class="sidebar-link {{ request()->routeIs('staff.*') ? 'active' : '' }}">
                             <i class="bi bi-people-fill"></i>
                             <span>Quản Lý Nhân Viên</span>
