@@ -92,6 +92,9 @@
                                 <a href="{{ route('medicines.show', $item) }}" class="fw-semibold text-decoration-none text-dark d-block">
                                     {{ $item->name }}
                                 </a>
+                                @if($item->supplier)
+                                    <small class="text-muted"><i class="bi bi-truck me-1"></i>{{ $item->supplier->name }}</small>
+                                @endif
                             </td>
                             <td>
                                 <span class="badge bg-info-subtle text-info-emphasis">

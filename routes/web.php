@@ -6,7 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\StaffController;
-use App\Http\Controllers\WarehouseController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,8 +37,8 @@ Route::middleware('admin')->group(function () {
     Route::resource('medicines', MedicineController::class);
     Route::resource('categories', CategoryController::class);
 
-    // 2. Quản lý Kho (Nhập / Xuất kho)
-    Route::resource('warehouse', WarehouseController::class)->only(['index', 'create', 'store', 'show']);
+    // 2. Quản lý Nhà Cung Cấp
+    Route::resource('suppliers', SupplierController::class)->except(['show']);
 
     // 3. Quản lý Hóa Đơn (Bán hàng) & 4. Quản lý Nhân Viên (Chỉ Admin)
     Route::middleware('admin:only')->group(function () {

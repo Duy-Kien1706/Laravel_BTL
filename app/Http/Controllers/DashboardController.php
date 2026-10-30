@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Invoice;
 use App\Models\Medicine;
+use App\Models\Supplier;
 use App\Models\User;
-use App\Models\WarehouseReceipt;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -27,7 +27,7 @@ class DashboardController extends Controller
             'total_revenue' => Invoice::where('status', 'paid')->sum('total_amount'),
             'today_revenue' => Invoice::where('status', 'paid')->whereDate('created_at', Carbon::today())->sum('total_amount'),
             'total_invoices' => Invoice::where('status', 'paid')->count(),
-            'total_warehouse_receipts' => WarehouseReceipt::count(),
+            'total_suppliers' => Supplier::count(),
         ];
 
         return view('dashboard', compact('stats'));

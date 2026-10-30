@@ -49,12 +49,12 @@
         <div class="card h-100 border-0 bg-info-subtle text-info-emphasis shadow-sm">
             <div class="card-body d-flex align-items-center justify-content-between p-3">
                 <div>
-                    <div class="text-uppercase small fw-bold opacity-75">Phiếu Nhập / Xuất Kho</div>
-                    <div class="fs-4 fw-bold mt-1 text-info">{{ number_format($stats['total_warehouse_receipts']) }}</div>
-                    <div class="small text-muted mt-1">Tổng cộng giao dịch kho</div>
+                    <div class="text-uppercase small fw-bold opacity-75">Nhà Cung Cấp Dược</div>
+                    <div class="fs-4 fw-bold mt-1 text-info">{{ number_format($stats['total_suppliers']) }}</div>
+                    <div class="small text-muted mt-1">Đối tác phân phối thuốc</div>
                 </div>
                 <div class="stat-icon bg-info text-white shadow-sm">
-                    <i class="bi bi-arrow-left-right"></i>
+                    <i class="bi bi-truck"></i>
                 </div>
             </div>
         </div>

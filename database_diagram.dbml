@@ -1,5 +1,5 @@
 // ==========================================
-// HỆ THỐNG QUẢN LÝ DƯỢC PHẨM & KHO - PHARMACARE
+// HỆ THỐNG QUẢN LÝ DƯỢC PHẨM - PHARMACARE
 // Cách dùng: Mở https://dbdiagram.io và dán toàn bộ mã này vào khung bên trái
 // ==========================================
 
@@ -30,11 +30,26 @@ Table categories {
   Note: 'Bảng danh mục thuốc điều trị'
 }
 
+Table suppliers {
+  id bigint [pk, increment]
+  code varchar [unique, not null]
+  name varchar [not null]
+  phone varchar
+  email varchar
+  address varchar
+  description text
+  created_at timestamp
+  updated_at timestamp
+
+  Note: 'Bảng quản lý nhà cung cấp dược phẩm'
+}
+
 Table medicines {
   id bigint [pk, increment]
   name varchar [not null]
   code varchar [unique, not null]
   category_id bigint [not null]
+  supplier_id bigint [note: 'Nhà cung cấp thuốc']
   unit varchar [not null, note: 'Viên, Vỉ, Hộp, Chai, Tuýp,...']
   price decimal(12,2) [not null]
   stock int [not null, default: 0]
@@ -44,33 +59,6 @@ Table medicines {
   updated_at timestamp
 
   Note: 'Bảng thông tin thuốc và số lượng tồn kho'
-}
-
-Table warehouse_receipts {
-  id bigint [pk, increment]
-  code varchar [unique, not null]
-  type varchar [not null, default: 'import', note: 'import (Nhập kho) | export (Xuất kho)']
-  supplier varchar [note: 'Nhà cung cấp hoặc đơn vị nhận hàng']
-  user_id bigint [not null]
-  total_amount decimal(14,2) [default: 0]
-  note text
-  created_at timestamp
-  updated_at timestamp
-
-  Note: 'Bảng phiếu nhập / xuất kho dược phẩm'
-}
-
-Table warehouse_receipt_details {
-  id bigint [pk, increment]
-  warehouse_receipt_id bigint [not null]
-  medicine_id bigint [not null]
-  quantity int [not null]
-  unit_price decimal(12,2) [not null]
-  total_price decimal(14,2) [not null]
-  created_at timestamp
-  updated_at timestamp
-
-  Note: 'Bảng chi tiết các mặt hàng trong phiếu kho'
 }
 
 Table invoices {
@@ -109,20 +97,14 @@ Table invoice_details {
 // 1. Một danh mục có nhiều thuốc (1 - N)
 Ref: categories.id < medicines.category_id [delete: cascade]
 
-// 2. Một nhân viên lập nhiều phiếu kho (1 - N)
-Ref: users.id < warehouse_receipts.user_id [delete: cascade]
+// 2. Một nhà cung cấp cung ứng nhiều loại thuốc (1 - N)
+Ref: suppliers.id < medicines.supplier_id [delete: set null]
 
-// 3. Một phiếu kho có nhiều dòng chi tiết mặt hàng (1 - N)
-Ref: warehouse_receipts.id < warehouse_receipt_details.warehouse_receipt_id [delete: cascade]
-
-// 4. Một loại thuốc xuất hiện trong nhiều phiếu kho (1 - N)
-Ref: medicines.id < warehouse_receipt_details.medicine_id [delete: cascade]
-
-// 5. Một nhân viên/dược sĩ lập nhiều hóa đơn bán lẻ (1 - N)
+// 3. Một nhân viên/dược sĩ lập nhiều hóa đơn bán lẻ (1 - N)
 Ref: users.id < invoices.user_id [delete: cascade]
 
-// 6. Một hóa đơn có nhiều dòng chi tiết thuốc bán (1 - N)
+// 4. Một hóa đơn có nhiều dòng chi tiết thuốc bán (1 - N)
 Ref: invoices.id < invoice_details.invoice_id [delete: cascade]
 
-// 7. Một loại thuốc xuất hiện trong nhiều hóa đơn bán lẻ (1 - N)
+// 5. Một loại thuốc xuất hiện trong nhiều hóa đơn bán lẻ (1 - N)
 Ref: medicines.id < invoice_details.medicine_id [delete: cascade]

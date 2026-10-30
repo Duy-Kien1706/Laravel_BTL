@@ -257,9 +257,9 @@
                         <span>Danh Mục Thuốc</span>
                     </a>
 
-                    <a href="{{ route('warehouse.index') }}" class="sidebar-link {{ request()->routeIs('warehouse.*') ? 'active' : '' }}">
-                        <i class="bi bi-boxes"></i>
-                        <span>Quản Lý Kho</span>
+                    <a href="{{ route('suppliers.index') }}" class="sidebar-link {{ request()->routeIs('suppliers.*') ? 'active' : '' }}">
+                        <i class="bi bi-truck"></i>
+                        <span>Nhà Cung Cấp</span>
                     </a>
 
                     @if(Auth::user()->isAdmin())

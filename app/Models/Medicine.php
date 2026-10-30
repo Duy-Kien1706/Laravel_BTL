@@ -12,6 +12,7 @@ class Medicine extends Model
         'name',
         'code',
         'category_id',
+        'supplier_id',
         'unit',
         'price',
         'stock',
@@ -45,11 +46,11 @@ class Medicine extends Model
     }
 
     /**
-     * Chi tiết các phiếu kho liên quan đến loại thuốc này
+     * Nhà cung cấp của loại thuốc này
      */
-    public function warehouseReceiptDetails(): HasMany
+    public function supplier(): BelongsTo
     {
-        return $this->hasMany(WarehouseReceiptDetail::class);
+        return $this->belongsTo(Supplier::class);
     }
 
     /**

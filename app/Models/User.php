@@ -44,14 +44,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Danh sách phiếu kho do nhân viên này lập
-     */
-    public function warehouseReceipts(): HasMany
-    {
-        return $this->hasMany(WarehouseReceipt::class);
-    }
-
-    /**
      * Kiểm tra có phải quản trị viên không
      */
     public function isAdmin(): bool

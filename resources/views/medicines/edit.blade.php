@@ -40,7 +40,7 @@
                             @enderror
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="category_id" class="form-label fw-semibold small">Danh Mục Thuốc <span class="text-danger">*</span></label>
                             <select class="form-select @error('category_id') is-invalid @enderror" id="category_id" name="category_id" required>
                                 <option value="">-- Chọn danh mục thuốc --</option>
@@ -55,7 +55,22 @@
                             @enderror
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <label for="supplier_id" class="form-label fw-semibold small">Nhà Cung Cấp</label>
+                            <select class="form-select @error('supplier_id') is-invalid @enderror" id="supplier_id" name="supplier_id">
+                                <option value="">-- Chọn nhà cung cấp --</option>
+                                @foreach($suppliers as $sup)
+                                    <option value="{{ $sup->id }}" {{ old('supplier_id', $medicine->supplier_id) == $sup->id ? 'selected' : '' }}>
+                                        {{ $sup->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('supplier_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-4">
                             <label for="unit" class="form-label fw-semibold small">Đơn Vị Tính <span class="text-danger">*</span></label>
                             <input list="unit-options" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit" value="{{ old('unit', $medicine->unit) }}" required>
                             <datalist id="unit-options">

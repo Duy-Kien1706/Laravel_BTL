@@ -33,6 +33,9 @@
                         <h3 class="fw-bold mb-1 text-dark">{{ $medicine->name }}</h3>
                         <div class="text-muted small">
                             Mã thuốc hệ thống: <span class="badge bg-secondary-subtle text-secondary-emphasis font-monospace">{{ $medicine->code }}</span>
+                            @if($medicine->supplier)
+                                | Nhà cung cấp: <strong class="text-primary">{{ $medicine->supplier->name }}</strong>
+                            @endif
                         </div>
                     </div>
                     <div class="text-md-end">

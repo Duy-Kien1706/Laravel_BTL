@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Medicine;
+use App\Models\Supplier;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class MedicineController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Medicine::with('category');
+        $query = Medicine::with(['category', 'supplier']);
 
         // Tìm kiếm theo tên hoặc mã thuốc
         if ($request->filled('search')) {
@@ -60,9 +61,10 @@ class MedicineController extends Controller
     public function create()
     {
         $categories = Category::orderBy('name')->get();
+        $suppliers = Supplier::orderBy('name')->get();
         $defaultUnits = ['Viên', 'Vỉ', 'Hộp', 'Chai', 'Gói', 'Tuýp', 'Ống', 'Lọ'];
 
-        return view('medicines.create', compact('categories', 'defaultUnits'));
+        return view('medicines.create', compact('categories', 'suppliers', 'defaultUnits'));
     }
 
     /**
@@ -74,6 +76,7 @@ class MedicineController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'code' => ['required', 'string', 'max:50', 'unique:medicines,code'],
             'category_id' => ['required', 'exists:categories,id'],
+            'supplier_id' => ['nullable', 'exists:suppliers,id'],
             'unit' => ['required', 'string', 'max:50'],
             'price' => ['required', 'numeric', 'min:0'],
             'stock' => ['required', 'integer', 'min:0'],
@@ -85,6 +88,7 @@ class MedicineController extends Controller
             'code.unique' => 'Mã thuốc này đã tồn tại trong hệ thống.',
             'category_id.required' => 'Vui lòng chọn danh mục thuốc.',
             'category_id.exists' => 'Danh mục thuốc không hợp lệ.',
+            'supplier_id.exists' => 'Nhà cung cấp không hợp lệ.',
             'unit.required' => 'Vui lòng chọn hoặc nhập đơn vị tính.',
             'price.required' => 'Vui lòng nhập giá bán.',
             'price.numeric' => 'Giá bán phải là số hợp lệ.',
@@ -107,7 +111,7 @@ class MedicineController extends Controller
      */
     public function show(Medicine $medicine)
     {
-        $medicine->load('category');
+        $medicine->load(['category', 'supplier']);
         return view('medicines.show', compact('medicine'));
     }
 
@@ -117,9 +121,10 @@ class MedicineController extends Controller
     public function edit(Medicine $medicine)
     {
         $categories = Category::orderBy('name')->get();
+        $suppliers = Supplier::orderBy('name')->get();
         $defaultUnits = ['Viên', 'Vỉ', 'Hộp', 'Chai', 'Gói', 'Tuýp', 'Ống', 'Lọ'];
 
-        return view('medicines.edit', compact('medicine', 'categories', 'defaultUnits'));
+        return view('medicines.edit', compact('medicine', 'categories', 'suppliers', 'defaultUnits'));
     }
 
     /**
@@ -131,6 +136,7 @@ class MedicineController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'code' => ['required', 'string', 'max:50', 'unique:medicines,code,' . $medicine->id],
             'category_id' => ['required', 'exists:categories,id'],
+            'supplier_id' => ['nullable', 'exists:suppliers,id'],
             'unit' => ['required', 'string', 'max:50'],
             'price' => ['required', 'numeric', 'min:0'],
             'stock' => ['required', 'integer', 'min:0'],
@@ -142,6 +148,7 @@ class MedicineController extends Controller
             'code.unique' => 'Mã thuốc này đã thuộc về thuốc khác.',
             'category_id.required' => 'Vui lòng chọn danh mục thuốc.',
             'category_id.exists' => 'Danh mục thuốc không hợp lệ.',
+            'supplier_id.exists' => 'Nhà cung cấp không hợp lệ.',
             'unit.required' => 'Vui lòng chọn hoặc nhập đơn vị tính.',
             'price.required' => 'Vui lòng nhập giá bán.',
             'price.numeric' => 'Giá bán phải là số hợp lệ.',

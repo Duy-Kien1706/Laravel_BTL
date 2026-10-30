@@ -37,13 +37,13 @@
                             @enderror
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="d-flex justify-content-between align-items-center mb-1">
                                 <label for="category_id" class="form-label fw-semibold small mb-0">Danh Mục Thuốc <span class="text-danger">*</span></label>
-                                <a href="{{ route('categories.create') }}" target="_blank" class="small text-decoration-none">+ Tạo danh mục mới</a>
+                                <a href="{{ route('categories.create') }}" class="small text-decoration-none">+ Danh mục</a>
                             </div>
                             <select class="form-select @error('category_id') is-invalid @enderror" id="category_id" name="category_id" required>
-                                <option value="">-- Chọn danh mục thuốc --</option>
+                                <option value="">-- Chọn danh mục --</option>
                                 @foreach($categories as $cat)
                                     <option value="{{ $cat->id }}" {{ old('category_id') == $cat->id ? 'selected' : '' }}>
                                         {{ $cat->name }}
@@ -55,9 +55,27 @@
                             @enderror
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <label for="supplier_id" class="form-label fw-semibold small mb-0">Nhà Cung Cấp</label>
+                                <a href="{{ route('suppliers.create') }}" class="small text-decoration-none">+ Nhà cung cấp</a>
+                            </div>
+                            <select class="form-select @error('supplier_id') is-invalid @enderror" id="supplier_id" name="supplier_id">
+                                <option value="">-- Chọn nhà cung cấp --</option>
+                                @foreach($suppliers as $sup)
+                                    <option value="{{ $sup->id }}" {{ old('supplier_id') == $sup->id ? 'selected' : '' }}>
+                                        {{ $sup->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('supplier_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-4">
                             <label for="unit" class="form-label fw-semibold small">Đơn Vị Tính <span class="text-danger">*</span></label>
-                            <input list="unit-options" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit" value="{{ old('unit') }}" placeholder="Chọn hoặc nhập đơn vị tính..." required>
+                            <input list="unit-options" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit" value="{{ old('unit') }}" placeholder="Chọn hoặc nhập ĐVT..." required>
                             <datalist id="unit-options">
                                 @foreach($defaultUnits as $u)
                                     <option value="{{ $u }}">
