@@ -55,9 +55,9 @@
                     </button>
                 </form>
 
-                <div class="text-center mt-4 pt-3 border-top">
-                    <span class="text-muted small">Chưa có tài khoản quản trị?</span>
-                    <a href="{{ route('register') }}" class="small fw-semibold text-primary text-decoration-none ms-1">Đăng ký ngay</a>
+                <div class="text-center mt-4 pt-3 border-top text-muted small">
+                    <i class="bi bi-shield-lock me-1"></i> Hệ thống quản lý nội bộ PharmaCare.
+                    <div class="mt-1">Tài khoản do Quản trị viên cấp. Vui lòng liên hệ Admin nếu cần hỗ trợ.</div>
                 </div>
             </div>
         </div>

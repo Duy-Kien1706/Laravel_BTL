@@ -48,49 +48,6 @@ class AuthController extends Controller
     }
 
     /**
-     * Hiển thị trang đăng ký
-     */
-    public function showRegisterForm()
-    {
-        if (Auth::check()) {
-            return redirect()->route('medicines.index');
-        }
-
-        return view('auth.register');
-    }
-
-    /**
-     * Xử lý đăng ký tài khoản mới
-     */
-    public function register(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
-        ], [
-            'name.required' => 'Vui lòng nhập họ và tên.',
-            'email.required' => 'Vui lòng nhập địa chỉ email.',
-            'email.email' => 'Email không đúng định dạng.',
-            'email.unique' => 'Email này đã được sử dụng.',
-            'password.required' => 'Vui lòng nhập mật khẩu.',
-            'password.min' => 'Mật khẩu phải có ít nhất 6 ký tự.',
-            'password.confirmed' => 'Xác nhận mật khẩu không trùng khớp.',
-        ]);
-
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-        ]);
-
-        Auth::login($user);
-
-        return redirect()->route('medicines.index')
-            ->with('success', 'Đăng ký tài khoản thành công! Bạn đã được đăng nhập tự động.');
-    }
-
-    /**
      * Xử lý đăng xuất
      */
     public function logout(Request $request)

@@ -358,7 +358,7 @@
             </div>
         </div>
     @else
-        <!-- Guest View (Login / Register) -->
+        <!-- Guest View (Login) -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm py-2">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('login') }}">
@@ -367,9 +367,10 @@
                     </span>
                     <span>PharmaCare <small class="fw-normal fs-6 opacity-75">| Quản Lý Hiệu Thuốc</small></span>
                 </a>
-                <div class="ms-auto d-flex gap-2">
-                    <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm">Đăng Nhập</a>
-                    <a href="{{ route('register') }}" class="btn btn-light btn-sm text-primary fw-semibold">Đăng Ký</a>
+                <div class="ms-auto d-flex align-items-center gap-2">
+                    <span class="badge bg-white text-primary px-3 py-2 fw-semibold">
+                        <i class="bi bi-shield-lock me-1"></i> Cổng Đăng Nhập Hệ Thống
+                    </span>
                 </div>
             </div>
         </nav>
