@@ -23,7 +23,7 @@ class DashboardController extends Controller
             'total_staff' => User::count(),
             'total_stock' => Medicine::sum('stock'),
             'low_stock' => Medicine::where('stock', '<=', 10)->count(),
-            'expiring_soon' => Medicine::where('expiry_date', '<=', Carbon::now()->addDays(30))->count(),
+            'expiring_soon' => Medicine::whereBetween('expiry_date', [Carbon::today(), Carbon::today()->addDays(30)])->count(),
             'total_revenue' => Invoice::where('status', 'paid')->sum('total_amount'),
             'today_revenue' => Invoice::where('status', 'paid')->whereDate('created_at', Carbon::today())->sum('total_amount'),
             'total_invoices' => Invoice::where('status', 'paid')->count(),

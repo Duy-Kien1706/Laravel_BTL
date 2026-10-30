@@ -8,7 +8,7 @@
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
             <div>
                 <h4 class="fw-bold mb-0 text-dark"><i class="bi bi-tags text-primary me-2"></i> Danh Mục Thuốc (Categories)</h4>
-                <small class="text-muted">Quản lý các nhóm thuốc điều trị và số lượng sản phẩm liên kết</small>
+                <small class="text-muted">Quản lý các nhóm thuốc điều trị trong hệ thống</small>
             </div>
             <div>
                 <a href="{{ route('categories.create') }}" class="btn btn-primary d-inline-flex align-items-center gap-2">
@@ -49,7 +49,6 @@
                         <th class="ps-3" style="width: 80px;">ID</th>
                         <th style="width: 250px;">Tên Danh Mục</th>
                         <th>Mô Tả Chi Tiết</th>
-                        <th class="text-center" style="width: 140px;">Số Lượng Thuốc</th>
                         <th class="text-center" style="width: 150px;">Ngày Tạo</th>
                         <th class="text-center pe-3" style="width: 150px;">Thao Tác</th>
                     </tr>
@@ -63,11 +62,6 @@
                             </td>
                             <td class="text-secondary small">
                                 {{ $cat->description ?: 'Chưa có mô tả chi tiết.' }}
-                            </td>
-                            <td class="text-center">
-                                <a href="{{ route('medicines.index', ['category_id' => $cat->id]) }}" class="badge bg-primary text-decoration-none" title="Xem danh sách thuốc thuộc nhóm này">
-                                    {{ $cat->medicines_count }} loại thuốc
-                                </a>
                             </td>
                             <td class="text-center text-muted small">
                                 {{ $cat->created_at ? $cat->created_at->format('d/m/Y') : 'N/A' }}
@@ -89,7 +83,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center py-5 text-muted">
+                            <td colspan="5" class="text-center py-5 text-muted">
                                 <i class="bi bi-tags fs-1 d-block mb-2 text-secondary opacity-50"></i>
                                 <h6>Chưa có danh mục thuốc nào</h6>
                                 <p class="small mb-0">Bấm <a href="{{ route('categories.create') }}">Thêm danh mục mới</a> để tạo nhóm đầu tiên.</p>

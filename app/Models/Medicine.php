@@ -53,19 +53,19 @@ class Medicine extends Model
     }
 
     /**
-     * Kiểm tra thuốc có sắp hết hạn không (trong vòng 30 ngày hoặc đã hết hạn)
-     */
-    public function isExpiringSoon(): bool
-    {
-        return $this->expiry_date->isPast() || $this->expiry_date->diffInDays(now()) <= 30;
-    }
-
-    /**
-     * Kiểm tra thuốc đã hết hạn chưa
+     * Kiểm tra thuốc đã hết hạn chưa (hạn sử dụng đã qua)
      */
     public function isExpired(): bool
     {
-        return $this->expiry_date->isPast();
+        return $this->expiry_date->endOfDay()->isPast();
+    }
+
+    /**
+     * Kiểm tra thuốc có sắp hết hạn không (còn hạn nhưng sẽ hết hạn trong vòng 30 ngày tới)
+     */
+    public function isExpiringSoon(): bool
+    {
+        return !$this->isExpired() && $this->expiry_date->lte(now()->addDays(30)->endOfDay());
     }
 
     /**
