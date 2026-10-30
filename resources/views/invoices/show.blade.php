@@ -10,24 +10,6 @@
             <a href="{{ route('invoices.index') }}" class="btn btn-outline-secondary btn-sm">
                 <i class="bi bi-arrow-left me-1"></i> Quay Lại Danh Sách
             </a>
-
-            <div class="d-flex align-items-center gap-2">
-                <button type="button" class="btn btn-outline-primary btn-sm" onclick="window.print()">
-                    <i class="bi bi-printer me-1"></i> In Hóa Đơn
-                </button>
-                <a href="{{ route('invoices.create') }}" class="btn btn-primary btn-sm">
-                    <i class="bi bi-plus-lg me-1"></i> Bán Đơn Mới
-                </a>
-
-                @if($invoice->status === 'paid')
-                    <form action="{{ route('invoices.cancel', $invoice) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn hủy hóa đơn {{ $invoice->code }} không?\nSau khi hủy, số lượng thuốc sẽ được hoàn trả lại vào kho tự động.');">
-                        @csrf
-                        <button type="submit" class="btn btn-outline-danger btn-sm">
-                            <i class="bi bi-x-circle me-1"></i> Hủy Hóa Đơn
-                        </button>
-                    </form>
-                @endif
-            </div>
         </div>
 
         <!-- Hóa đơn bán lẻ chi tiết -->
