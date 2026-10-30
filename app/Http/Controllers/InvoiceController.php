@@ -42,11 +42,12 @@ class InvoiceController extends Controller
     /**
      * Form lập hóa đơn bán hàng mới
      */
-    public function create()
+    public function create(Request $request)
     {
         $medicines = Medicine::with('category')->where('stock', '>', 0)->orderBy('name')->get();
+        $rowCount = max(1, min(15, (int) $request->query('rows', 3)));
 
-        return view('invoices.create', compact('medicines'));
+        return view('invoices.create', compact('medicines', 'rowCount'));
     }
 
     /**
@@ -54,6 +55,13 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
+        // Lọc bỏ các dòng trống (chưa chọn thuốc) trước khi validate
+        $filteredItems = collect($request->input('items', []))
+            ->filter(fn ($item) => !empty($item['medicine_id']))
+            ->values()
+            ->all();
+        $request->merge(['items' => $filteredItems]);
+
         $validated = $request->validate([
             'customer_name' => ['required', 'string', 'max:255'],
             'customer_phone' => ['nullable', 'string', 'max:20'],
@@ -62,7 +70,7 @@ class InvoiceController extends Controller
             'items' => ['required', 'array', 'min:1'],
             'items.*.medicine_id' => ['required', 'exists:medicines,id'],
             'items.*.quantity' => ['required', 'integer', 'min:1'],
-            'items.*.unit_price' => ['required', 'numeric', 'min:0'],
+            'items.*.unit_price' => ['nullable', 'numeric', 'min:0'],
         ], [
             'customer_name.required' => 'Vui lòng nhập tên khách hàng.',
             'items.required' => 'Vui lòng chọn ít nhất một loại thuốc để bán.',
@@ -75,27 +83,28 @@ class InvoiceController extends Controller
 
             $code = 'HD-' . date('Ymd') . '-' . strtoupper(substr(uniqid(), -4));
 
-            $totalAmount = 0;
-            foreach ($validated['items'] as $item) {
-                $totalAmount += $item['quantity'] * $item['unit_price'];
-            }
-
             $invoice = Invoice::create([
                 'code' => $code,
                 'customer_name' => $validated['customer_name'],
                 'customer_phone' => $validated['customer_phone'] ?? null,
                 'user_id' => auth()->id(),
-                'total_amount' => $totalAmount,
+                'total_amount' => 0,
                 'payment_method' => $validated['payment_method'],
                 'status' => 'paid',
                 'note' => $validated['note'] ?? null,
             ]);
 
+            $totalAmount = 0;
+
             foreach ($validated['items'] as $item) {
                 $medicine = Medicine::findOrFail($item['medicine_id']);
                 $quantity = (int) $item['quantity'];
-                $unitPrice = (float) $item['unit_price'];
+                // Nếu không nhập đơn giá hoặc để 0 thì tự động lấy giá bán niêm yết của thuốc
+                $unitPrice = (!empty($item['unit_price']) && $item['unit_price'] > 0)
+                    ? (float) $item['unit_price']
+                    : (float) $medicine->price;
                 $lineTotal = $quantity * $unitPrice;
+                $totalAmount += $lineTotal;
 
                 if ($medicine->stock < $quantity) {
                     throw new \Exception("Thuốc '{$medicine->name}' trong kho chỉ còn {$medicine->stock} {$medicine->unit}, không đủ để bán {$quantity}!");
@@ -112,6 +121,8 @@ class InvoiceController extends Controller
                 // Tự động trừ kho thuốc khi bán
                 $medicine->decrement('stock', $quantity);
             }
+
+            $invoice->update(['total_amount' => $totalAmount]);
 
             DB::commit();
 

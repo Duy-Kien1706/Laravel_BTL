@@ -40,10 +40,11 @@ Route::middleware('admin')->group(function () {
     // 2. Quản lý Kho (Nhập / Xuất kho)
     Route::resource('warehouse', WarehouseController::class)->only(['index', 'create', 'store', 'show']);
 
-    // 3. Quản lý Hóa Đơn (Bán hàng)
-    Route::resource('invoices', InvoiceController::class)->only(['index', 'create', 'store', 'show']);
-    Route::post('invoices/{invoice}/cancel', [InvoiceController::class, 'cancel'])->name('invoices.cancel');
+    // 3. Quản lý Hóa Đơn (Bán hàng) & 4. Quản lý Nhân Viên (Chỉ Admin)
+    Route::middleware('admin:only')->group(function () {
+        Route::resource('invoices', InvoiceController::class)->only(['index', 'create', 'store', 'show']);
+        Route::post('invoices/{invoice}/cancel', [InvoiceController::class, 'cancel'])->name('invoices.cancel');
 
-    // 4. Quản lý Nhân Viên
-    Route::resource('staff', StaffController::class);
+        Route::resource('staff', StaffController::class);
+    });
 });

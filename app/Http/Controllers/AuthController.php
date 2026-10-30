@@ -36,9 +36,19 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
+            if (Auth::user()->status === 'inactive') {
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+
+                return back()->withErrors([
+                    'email' => 'Tài khoản này đã ngừng hoạt động. Vui lòng liên hệ Quản trị viên.',
+                ])->onlyInput('email');
+            }
+
             $request->session()->regenerate();
 
-            return redirect()->intended(route('medicines.index'))
+            return redirect()->intended(route('dashboard'))
                 ->with('success', 'Đăng nhập thành công! Chào mừng ' . Auth::user()->name . '.');
         }
 

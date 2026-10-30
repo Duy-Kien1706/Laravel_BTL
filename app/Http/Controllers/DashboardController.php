@@ -30,18 +30,6 @@ class DashboardController extends Controller
             'total_warehouse_receipts' => WarehouseReceipt::count(),
         ];
 
-        // 5 hóa đơn bán hàng gần nhất
-        $recentInvoices = Invoice::with('user')->latest()->take(5)->get();
-
-        // 5 phiếu nhập/xuất kho gần nhất
-        $recentReceipts = WarehouseReceipt::with('user')->latest()->take(5)->get();
-
-        // 5 loại thuốc mới nhập gần nhất
-        $recentMedicines = Medicine::with('category')->latest()->take(5)->get();
-
-        // Phân bổ thuốc theo danh mục
-        $categoryBreakdown = Category::withCount('medicines')->orderBy('medicines_count', 'desc')->get();
-
-        return view('dashboard', compact('stats', 'recentInvoices', 'recentReceipts', 'recentMedicines', 'categoryBreakdown'));
+        return view('dashboard', compact('stats'));
     }
 }

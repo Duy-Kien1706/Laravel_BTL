@@ -16,8 +16,10 @@ class CategoryController extends Controller
 
         if ($request->filled('search')) {
             $search = trim($request->search);
-            $query->where('name', 'like', "%{$search}%")
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
                   ->orWhere('description', 'like', "%{$search}%");
+            });
         }
 
         $categories = $query->orderBy('name', 'asc')->paginate(10)->withQueryString();

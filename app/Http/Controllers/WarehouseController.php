@@ -37,11 +37,12 @@ class WarehouseController extends Controller
     /**
      * Form lập phiếu nhập / xuất kho mới
      */
-    public function create()
+    public function create(Request $request)
     {
         $medicines = Medicine::with('category')->orderBy('name')->get();
+        $rowCount = max(1, min(15, (int) $request->query('rows', 3)));
 
-        return view('warehouse.create', compact('medicines'));
+        return view('warehouse.create', compact('medicines', 'rowCount'));
     }
 
     /**
@@ -49,6 +50,13 @@ class WarehouseController extends Controller
      */
     public function store(Request $request)
     {
+        // Lọc bỏ các dòng trống (chưa chọn thuốc) trước khi validate
+        $filteredItems = collect($request->input('items', []))
+            ->filter(fn ($item) => !empty($item['medicine_id']))
+            ->values()
+            ->all();
+        $request->merge(['items' => $filteredItems]);
+
         $validated = $request->validate([
             'type' => ['required', 'in:import,export'],
             'supplier' => ['nullable', 'string', 'max:255'],
@@ -56,7 +64,7 @@ class WarehouseController extends Controller
             'items' => ['required', 'array', 'min:1'],
             'items.*.medicine_id' => ['required', 'exists:medicines,id'],
             'items.*.quantity' => ['required', 'integer', 'min:1'],
-            'items.*.unit_price' => ['required', 'numeric', 'min:0'],
+            'items.*.unit_price' => ['nullable', 'numeric', 'min:0'],
         ], [
             'type.required' => 'Vui lòng chọn loại phiếu kho.',
             'items.required' => 'Vui lòng thêm ít nhất một loại thuốc vào phiếu.',
@@ -72,25 +80,26 @@ class WarehouseController extends Controller
             $prefix = $validated['type'] === 'import' ? 'NK' : 'XK';
             $code = $prefix . '-' . date('Ymd') . '-' . strtoupper(substr(uniqid(), -4));
 
-            $totalAmount = 0;
-            foreach ($validated['items'] as $item) {
-                $totalAmount += $item['quantity'] * $item['unit_price'];
-            }
-
             $receipt = WarehouseReceipt::create([
                 'code' => $code,
                 'type' => $validated['type'],
                 'supplier' => $validated['supplier'] ?? null,
                 'user_id' => auth()->id(),
-                'total_amount' => $totalAmount,
+                'total_amount' => 0,
                 'note' => $validated['note'] ?? null,
             ]);
+
+            $totalAmount = 0;
 
             foreach ($validated['items'] as $item) {
                 $medicine = Medicine::findOrFail($item['medicine_id']);
                 $quantity = (int) $item['quantity'];
-                $unitPrice = (float) $item['unit_price'];
+                // Nếu không nhập đơn giá hoặc để 0 thì tự động lấy giá niêm yết của thuốc
+                $unitPrice = (!empty($item['unit_price']) && $item['unit_price'] > 0)
+                    ? (float) $item['unit_price']
+                    : (float) $medicine->price;
                 $lineTotal = $quantity * $unitPrice;
+                $totalAmount += $lineTotal;
 
                 WarehouseReceiptDetail::create([
                     'warehouse_receipt_id' => $receipt->id,
@@ -110,6 +119,8 @@ class WarehouseController extends Controller
                     $medicine->decrement('stock', $quantity);
                 }
             }
+
+            $receipt->update(['total_amount' => $totalAmount]);
 
             DB::commit();
 

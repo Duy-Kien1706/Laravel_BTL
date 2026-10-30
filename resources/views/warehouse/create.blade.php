@@ -54,61 +54,58 @@
                 </div>
             </div>
 
-            <!-- Card danh sách thuốc nhập/xuất -->
+            <!-- Card danh sách thuốc nhập/xuất (Xử lý hoàn toàn bằng PHP/Blade, không dùng JavaScript) -->
             <div class="card border-0 shadow-sm mb-4">
                 <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                    <h5 class="fw-bold mb-0 text-dark"><i class="bi bi-list-check text-primary me-2"></i> Danh Sách Thuốc</h5>
-                    <button type="button" class="btn btn-outline-primary btn-sm" id="addRowBtn">
-                        <i class="bi bi-plus-lg me-1"></i> Thêm Thuốc
-                    </button>
+                    <div>
+                        <h5 class="fw-bold mb-0 text-dark"><i class="bi bi-list-check text-primary me-2"></i> Danh Sách Thuốc</h5>
+                        <small class="text-muted">Các dòng không chọn thuốc sẽ tự động được bỏ qua. Nếu để trống đơn giá, hệ thống tự lấy giá của thuốc.</small>
+                    </div>
+                    <div class="d-flex gap-2">
+                        @if($rowCount > 1)
+                            <a href="{{ route('warehouse.create', ['rows' => $rowCount - 1]) }}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-dash-lg me-1"></i> Bớt Dòng
+                            </a>
+                        @endif
+                        <a href="{{ route('warehouse.create', ['rows' => $rowCount + 1]) }}" class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-plus-lg me-1"></i> Thêm Dòng ({{ $rowCount }})
+                        </a>
+                    </div>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table class="table table-bordered align-middle mb-0" id="itemsTable">
+                        <table class="table table-bordered align-middle mb-0">
                             <thead class="table-light small text-uppercase text-secondary">
                                 <tr>
-                                    <th style="min-width: 250px;">Tên Thuốc & Nhóm</th>
-                                    <th style="width: 140px;" class="text-center">Số Lượng</th>
-                                    <th style="width: 180px;" class="text-end">Đơn Giá (VNĐ)</th>
-                                    <th style="width: 180px;" class="text-end">Thành Tiền</th>
-                                    <th style="width: 60px;" class="text-center">Xóa</th>
+                                    <th class="text-center" style="width: 60px;">STT</th>
+                                    <th style="min-width: 280px;">Tên Thuốc & Tồn Kho Hiện Tại</th>
+                                    <th style="width: 150px;" class="text-center">Số Lượng</th>
+                                    <th style="width: 200px;" class="text-end">Đơn Giá (VNĐ)</th>
                                 </tr>
                             </thead>
-                            <tbody id="itemsBody">
-                                <tr class="item-row">
-                                    <td>
-                                        <select name="items[0][medicine_id]" class="form-select form-select-sm med-select" required>
-                                            <option value="">-- Chọn thuốc --</option>
-                                            @foreach($medicines as $med)
-                                                <option value="{{ $med->id }}" data-price="{{ (int)$med->price }}" data-stock="{{ $med->stock }}" data-unit="{{ $med->unit }}">
-                                                    {{ $med->name }} (Mã: {{ $med->code }} - Tồn: {{ $med->stock }} {{ $med->unit }})
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="items[0][quantity]" class="form-control form-control-sm text-center qty-input" value="1" min="1" required>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="items[0][unit_price]" class="form-control form-control-sm text-end price-input" value="0" min="0" step="500" required>
-                                    </td>
-                                    <td class="text-end fw-bold text-primary line-total">
-                                        0 VNĐ
-                                    </td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn btn-sm btn-outline-danger remove-row-btn" disabled>
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                            <tbody>
+                                @for($i = 0; $i < $rowCount; $i++)
+                                    <tr>
+                                        <td class="text-center fw-bold text-muted">{{ $i + 1 }}</td>
+                                        <td>
+                                            <select name="items[{{ $i }}][medicine_id]" class="form-select form-select-sm" {{ $i === 0 ? 'required' : '' }}>
+                                                <option value="">-- Chọn thuốc {{ $i === 0 ? '(Bắt buộc)' : '(Tùy chọn)' }} --</option>
+                                                @foreach($medicines as $med)
+                                                    <option value="{{ $med->id }}" {{ old("items.$i.medicine_id") == $med->id ? 'selected' : '' }}>
+                                                        {{ $med->name }} (Mã: {{ $med->code }} - Tồn: {{ $med->stock }} {{ $med->unit }}) — Giá: {{ number_format($med->price, 0, ',', '.') }} đ
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="items[{{ $i }}][quantity]" class="form-control form-control-sm text-center" value="{{ old("items.$i.quantity", 1) }}" min="1">
+                                        </td>
+                                        <td>
+                                            <input type="number" name="items[{{ $i }}][unit_price]" class="form-control form-control-sm text-end" value="{{ old("items.$i.unit_price") }}" min="0" step="500" placeholder="Tự lấy giá niêm yết">
+                                        </td>
+                                    </tr>
+                                @endfor
                             </tbody>
-                            <tfoot class="table-light">
-                                <tr>
-                                    <td colspan="3" class="text-end fw-bold fs-6">Tổng Giá Trị Phiếu Kho:</td>
-                                    <td class="text-end fw-bold text-success fs-5" id="grandTotal">0 VNĐ</td>
-                                    <td></td>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -123,84 +120,4 @@
         </form>
     </div>
 </div>
-@endsection
-
-@section('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        let rowIndex = 1;
-        const itemsBody = document.getElementById('itemsBody');
-        const addRowBtn = document.getElementById('addRowBtn');
-        const grandTotalElem = document.getElementById('grandTotal');
-
-        function formatVND(amount) {
-            return new Intl.NumberFormat('vi-VN').format(amount) + ' VNĐ';
-        }
-
-        function calculateTotals() {
-            let total = 0;
-            document.querySelectorAll('.item-row').forEach(row => {
-                const qty = parseFloat(row.querySelector('.qty-input').value) || 0;
-                const price = parseFloat(row.querySelector('.price-input').value) || 0;
-                const lineTotal = qty * price;
-                row.querySelector('.line-total').textContent = formatVND(lineTotal);
-                total += lineTotal;
-            });
-            grandTotalElem.textContent = formatVND(total);
-        }
-
-        function updateRemoveButtons() {
-            const rows = document.querySelectorAll('.item-row');
-            rows.forEach(row => {
-                row.querySelector('.remove-row-btn').disabled = rows.length === 1;
-            });
-        }
-
-        function bindRowEvents(row) {
-            const select = row.querySelector('.med-select');
-            const qtyInput = row.querySelector('.qty-input');
-            const priceInput = row.querySelector('.price-input');
-            const removeBtn = row.querySelector('.remove-row-btn');
-
-            select.addEventListener('change', function () {
-                const selectedOption = select.options[select.selectedIndex];
-                if (selectedOption && selectedOption.dataset.price) {
-                    priceInput.value = selectedOption.dataset.price;
-                }
-                calculateTotals();
-            });
-
-            qtyInput.addEventListener('input', calculateTotals);
-            priceInput.addEventListener('input', calculateTotals);
-
-            removeBtn.addEventListener('click', function () {
-                if (document.querySelectorAll('.item-row').length > 1) {
-                    row.remove();
-                    updateRemoveButtons();
-                    calculateTotals();
-                }
-            });
-        }
-
-        bindRowEvents(document.querySelector('.item-row'));
-
-        addRowBtn.addEventListener('click', function () {
-            const firstRow = document.querySelector('.item-row');
-            const newRow = firstRow.cloneNode(true);
-
-            newRow.querySelector('.med-select').name = `items[${rowIndex}][medicine_id]`;
-            newRow.querySelector('.med-select').value = '';
-            newRow.querySelector('.qty-input').name = `items[${rowIndex}][quantity]`;
-            newRow.querySelector('.qty-input').value = 1;
-            newRow.querySelector('.price-input').name = `items[${rowIndex}][unit_price]`;
-            newRow.querySelector('.price-input').value = 0;
-            newRow.querySelector('.line-total').textContent = '0 VNĐ';
-
-            itemsBody.appendChild(newRow);
-            bindRowEvents(newRow);
-            updateRemoveButtons();
-            rowIndex++;
-        });
-    });
-</script>
 @endsection
