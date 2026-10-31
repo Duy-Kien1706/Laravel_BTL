@@ -1,0 +1,545 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="ProgId" content="Word.Document">
+<meta name="Generator" content="Microsoft Word 15">
+<meta name="Originator" content="Microsoft Word 15">
+<title>Báo Cáo Bài Tập Lớn - Hệ Thống Quản Lý Nhà Thuốc PharmaCare</title>
+<!--[if gte mso 9]>
+<xml>
+ <w:WordDocument>
+  <w:View>Print</w:View>
+  <w:Zoom>100</w:Zoom>
+  <w:TrackMoves>false</w:TrackMoves>
+  <w:TrackFormatting/>
+  <w:PunctuationKerning/>
+  <w:ValidateAgainstSchemas/>
+ </w:WordDocument>
+</xml>
+<![endif]-->
+<style>
+@page Section1 {
+    size: 21.0cm 29.7cm;
+    margin: 2.0cm 2.0cm 2.0cm 3.0cm;
+    mso-header-margin: 1.2cm;
+    mso-footer-margin: 1.2cm;
+    mso-paper-source: 0;
+}
+div.Section1 {
+    page: Section1;
+}
+body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 13pt;
+    line-height: 1.5;
+    color: #000000;
+    text-align: justify;
+}
+h1 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 16pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 18pt;
+    margin-bottom: 12pt;
+    color: #000000;
+}
+h2 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 14pt;
+    font-weight: bold;
+    margin-top: 14pt;
+    margin-bottom: 8pt;
+    color: #000000;
+}
+h3 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 13pt;
+    font-weight: bold;
+    font-style: italic;
+    margin-top: 10pt;
+    margin-bottom: 6pt;
+    color: #000000;
+}
+p {
+    margin-top: 6pt;
+    margin-bottom: 6pt;
+    text-indent: 1.0cm;
+    text-align: justify;
+}
+p.no-indent {
+    text-indent: 0cm;
+}
+ul, ol {
+    margin-top: 6pt;
+    margin-bottom: 6pt;
+}
+li {
+    margin-bottom: 4pt;
+    text-align: justify;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10pt;
+    margin-bottom: 12pt;
+    font-size: 12pt;
+}
+th, td {
+    border: 1pt solid #000000;
+    padding: 6pt 8pt;
+    vertical-align: top;
+    text-align: left;
+}
+th {
+    background-color: #E2EFDA;
+    font-weight: bold;
+    text-align: center;
+}
+.cover-box {
+    border: 3pt double #000000;
+    padding: 25pt 20pt;
+    text-align: center;
+}
+.page-break {
+    page-break-before: always;
+    mso-special-character: line-break;
+}
+</style>
+</head>
+<body>
+<div class="Section1">
+
+    <!-- TRANG BÌA -->
+    <div class="cover-box">
+        <p class="no-indent" style="text-align: center; font-size: 14pt; font-weight: bold; margin-bottom: 4pt;">BỘ GIÁO DỤC VÀ ĐÀO TẠO</p>
+        <p class="no-indent" style="text-align: center; font-size: 15pt; font-weight: bold; margin-top: 0pt;">TRƯỜNG ĐẠI HỌC ......................................................</p>
+        <p class="no-indent" style="text-align: center; font-size: 13pt; font-weight: bold;">KHOA CÔNG NGHỆ THÔNG TIN</p>
+        <p class="no-indent" style="text-align: center; font-size: 13pt;">-------------------o0o-------------------</p>
+
+        <br><br><br>
+
+        <p class="no-indent" style="text-align: center; font-size: 20pt; font-weight: bold;">BÁO CÁO BÀI TẬP LỚN</p>
+        <p class="no-indent" style="text-align: center; font-size: 14pt; font-weight: bold; margin-top: 10pt;">HỌC PHẦN: PHÁT TRIỂN ỨNG DỤNG WEB</p>
+
+        <br><br>
+
+        <p class="no-indent" style="text-align: center; font-size: 15pt; font-weight: bold;">ĐỀ TÀI:</p>
+        <p class="no-indent" style="text-align: center; font-size: 17pt; font-weight: bold; line-height: 1.4;">
+            XÂY DỰNG HỆ THỐNG QUẢN LÝ NHÀ THUỐC<br>
+            VÀ DƯỢC PHẨM (PHARMACARE)
+        </p>
+
+        <br><br><br>
+
+        <table style="border: none; width: 85%; margin-left: auto; margin-right: auto; font-size: 13pt;">
+            <tr style="border: none;">
+                <td style="border: none; width: 42%; font-weight: bold;">Giảng viên hướng dẫn:</td>
+                <td style="border: none; width: 58%;">............................................................</td>
+            </tr>
+            <tr style="border: none;">
+                <td style="border: none; font-weight: bold;">Sinh viên thực hiện:</td>
+                <td style="border: none;">............................................................</td>
+            </tr>
+            <tr style="border: none;">
+                <td style="border: none; font-weight: bold;">Mã số sinh viên:</td>
+                <td style="border: none;">............................................................</td>
+            </tr>
+            <tr style="border: none;">
+                <td style="border: none; font-weight: bold;">Lớp:</td>
+                <td style="border: none;">............................................................</td>
+            </tr>
+        </table>
+
+        <br><br><br>
+        <p class="no-indent" style="text-align: center; font-size: 13pt; font-style: italic;">Năm học: 2026</p>
+    </div>
+
+    <br clear="all" style="page-break-before:always" />
+
+    <!-- LỜI NÓI ĐẦU -->
+    <h1>LỜI NÓI ĐẦU</h1>
+    <p>Trong kỷ nguyên chuyển đổi số hiện nay, việc ứng dụng Công nghệ Thông tin vào công tác quản lý bán hàng và vận hành cơ sở y tế - dược phẩm đã trở thành yêu cầu tất yếu. Đối với các nhà thuốc bán lẻ, lượng danh mục thuốc đa dạng cùng yêu cầu khắt khe về việc kiểm soát hạn sử dụng (Date thuốc), số lượng thuốc hiện có, nguồn gốc nhà cung cấp và tốc độ thanh toán tại quầy đòi hỏi một hệ thống phần mềm chính xác, ổn định và dễ sử dụng.</p>
+    <p>Xuất phát từ nhu cầu thực tiễn đó, trong khuôn khổ Bài tập lớn học phần Phát triển Ứng dụng Web, đề tài <b>"Xây dựng Hệ thống Quản lý Nhà thuốc và Dược phẩm (PharmaCare)"</b> đã được lựa chọn và triển khai trên nền tảng <b>PHP Laravel 12 Framework</b>. Hệ thống cung cấp giải pháp quản lý khép kín từ Danh mục điều trị, Thông tin thuốc, Cảnh báo hạn sử dụng/số lượng tồn cho đến Lập hóa đơn bán lẻ tự động trừ số lượng và Quản lý Nhà cung cấp, Nhân sự theo phân quyền Quản trị viên.</p>
+    <p>Nội dung báo cáo được chia thành 5 chương chính:</p>
+    <ul>
+        <li><b>Chương 1:</b> Tổng quan về đề tài nghiên cứu.</li>
+        <li><b>Chương 2:</b> Cơ sở lý thuyết và công nghệ sử dụng.</li>
+        <li><b>Chương 3:</b> Phân tích và thiết kế hệ thống &amp; Cơ sở dữ liệu.</li>
+        <li><b>Chương 4:</b> Triển khai chi tiết các phân hệ chức năng.</li>
+        <li><b>Chương 5:</b> Kết luận, đánh giá và hướng phát triển.</li>
+    </ul>
+
+    <br clear="all" style="page-break-before:always" />
+
+    <!-- CHƯƠNG 1 -->
+    <h1>CHƯƠNG 1: TỔNG QUAN ĐỀ TÀI</h1>
+
+    <h2>1.1. Lý do chọn đề tài</h2>
+    <p>Hoạt động kinh doanh dược phẩm tại các nhà thuốc có đặc thù khác biệt lớn so với các ngành hàng bán lẻ thông thường. Mỗi loại thuốc không chỉ gắn với giá bán và số lượng hiện có, mà còn chịu sự ràng buộc chặt chẽ về nhóm tác dụng dược lý, đơn vị tính (Hộp, Vỉ, Viên, Chai, Tuýp, Lọ, Ống), nguồn cung ứng đạt chuẩn (GMP-WHO, EU-GMP) và đặc biệt là <b>hạn sử dụng</b>.</p>
+    <p>Nếu nhà thuốc vẫn quản lý thủ công bằng sổ sách hoặc các tệp bảng tính rời rạc, rất dễ phát sinh các bất cập nghiêm trọng:</p>
+    <ul>
+        <li>Không phát hiện kịp thời các loại thuốc sắp hết hạn sử dụng (trong vòng 30 ngày) hoặc đã quá hạn, gây rủi ro cho sức khỏe người tiêu dùng và thất thoát chi phí.</li>
+        <li>Không kiểm soát được chính xác số lượng thuốc tức thời khi bán hàng hoặc khi khách hàng yêu cầu hủy/đổi trả hóa đơn.</li>
+        <li>Mất nhiều thời gian khi tra cứu giá thuốc, lập hóa đơn nhiều mặt hàng, cộng tiền thủ công và thống kê doanh thu cuối ngày.</li>
+        <li>Thiếu cơ chế phân quyền rõ ràng giữa Chủ nhà thuốc (Quản trị viên) và Dược sĩ bán hàng đối với các thông tin nhạy cảm như danh sách Nhà cung cấp và hồ sơ lương Nhân viên.</li>
+    </ul>
+    <p>Chính vì vậy, việc xây dựng hệ thống <b>PharmaCare</b> trên nền tảng Web nhằm tự động hóa các nghiệp vụ trên là hết sức thiết thực và có giá trị ứng dụng cao.</p>
+
+    <h2>1.2. Mục tiêu của đề tài</h2>
+    <ul>
+        <li><b>Số hóa dữ liệu dược phẩm:</b> Quản lý tập trung danh mục nhóm thuốc, danh sách nhà cung cấp và thông tin chi tiết từng loại thuốc.</li>
+        <li><b>Cảnh báo tự động &amp; trực quan:</b> Tự động đánh dấu và lọc các loại thuốc sắp hết hàng (số lượng &le; 10), đã hết hàng (số lượng = 0), sắp hết hạn sử dụng (&le; 30 ngày) hoặc đã quá hạn.</li>
+        <li><b>Đảm bảo toàn vẹn dữ liệu bán hàng:</b> Tự động trừ số lượng thuốc khi lập hóa đơn bán lẻ và tự động hoàn trả số lượng khi hủy hóa đơn thông qua cơ chế <i>Database Transaction</i>.</li>
+        <li><b>Phân quyền và bảo mật chặt chẽ:</b> Phân tách rõ quyền hạn giữa <b>Quản trị viên (Admin)</b> và <b>Dược sĩ bán hàng (Pharmacist)</b>, trong đó chỉ Admin mới nhìn thấy và sử dụng được chức năng Quản lý Nhà cung cấp và Quản lý Nhân viên.</li>
+    </ul>
+
+    <h2>1.3. Phạm vi và đối tượng sử dụng hệ thống</h2>
+    <p>Hệ thống phục vụ 2 nhóm tác nhân (Actor) chính trong nhà thuốc:</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 8%;">STT</th>
+                <th style="width: 25%;">Vai trò người dùng</th>
+                <th style="width: 17%;">Mã vai trò (role)</th>
+                <th style="width: 50%;">Quyền hạn và chức năng trong hệ thống</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="text-align: center;">1</td>
+                <td><b>Quản trị viên (Admin)</b></td>
+                <td style="text-align: center;"><code>admin</code></td>
+                <td>Toàn quyền quản trị hệ thống: Xem Dashboard tổng thể, Quản lý Thuốc, Danh mục thuốc, Hóa đơn bán hàng và độc quyền truy cập <b>Quản lý Nhà cung cấp</b> &amp; <b>Quản lý Nhân viên</b>.</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">2</td>
+                <td><b>Dược sĩ bán hàng</b></td>
+                <td style="text-align: center;"><code>pharmacist</code></td>
+                <td>Xem Dashboard doanh thu &amp; thuốc, quản lý/tra cứu thông tin Thuốc và Danh mục thuốc, lập Hóa đơn bán thuốc tại quầy, in hóa đơn và hủy hóa đơn khi cần. (Không nhìn thấy và không truy cập được mục Nhà cung cấp &amp; Nhân viên).</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br clear="all" style="page-break-before:always" />
+
+    <!-- CHƯƠNG 2 -->
+    <h1>CHƯƠNG 2: CƠ SỞ LÝ THUYẾT VÀ CÔNG NGHỆ SỬ DỤNG</h1>
+
+    <h2>2.1. Kiến trúc MVC (Model – View – Controller)</h2>
+    <p>Dự án được thiết kế tuân thủ chặt chẽ mô hình kiến trúc <b>MVC</b> của Laravel Framework, tách biệt rõ ràng giữa dữ liệu, giao diện và xử lý nghiệp vụ:</p>
+    <ul>
+        <li><b>Model (`app/Models`):</b> Đại diện cho cấu trúc dữ liệu và các mối quan hệ giữa các bảng trong CSDL thông qua <i>Eloquent ORM</i> (gồm <code>User</code>, <code>Category</code>, <code>Supplier</code>, <code>Medicine</code>, <code>Invoice</code>, <code>InvoiceDetail</code>).</li>
+        <li><b>View (`resources/views`):</b> Tầng hiển thị giao diện người dùng sử dụng <i>Laravel Blade Template Engine</i> kết hợp HTML5, CSS3 và Bootstrap 5.</li>
+        <li><b>Controller (`app/Http/Controllers`):</b> Tiếp nhận yêu cầu HTTP từ người dùng, kiểm tra tính hợp lệ của dữ liệu (Validation), gọi Model xử lý nghiệp vụ và trả về View tương ứng.</li>
+    </ul>
+
+    <h2>2.2. Các công nghệ và thư viện sử dụng</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 28%;">Thành phần</th>
+                <th style="width: 32%;">Công nghệ / Phiên bản</th>
+                <th style="width: 40%;">Vai trò trong dự án</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><b>Ngôn ngữ lập trình</b></td>
+                <td>PHP ^8.2</td>
+                <td>Xử lý logic phía máy chủ (Server-side scripting).</td>
+            </tr>
+            <tr>
+                <td><b>Backend Framework</b></td>
+                <td>Laravel Framework ^12.0</td>
+                <td>Cung cấp Routing, Middleware, Eloquent ORM, Validation, Auth, Session và Blade Template.</td>
+            </tr>
+            <tr>
+                <td><b>Hệ quản trị CSDL</b></td>
+                <td>SQLite / MySQL</td>
+                <td>Lưu trữ dữ liệu quan hệ với đầy đủ khóa chính, khóa ngoại và giao dịch (Transaction).</td>
+            </tr>
+            <tr>
+                <td><b>Giao diện (Frontend)</b></td>
+                <td>Bootstrap 5.3.3 &amp; Bootstrap Icons 1.11.3</td>
+                <td>Thiết kế giao diện quản trị hiện đại, chuẩn Responsive, biểu tượng trực quan.</td>
+            </tr>
+            <tr>
+                <td><b>Bảo mật ứng dụng</b></td>
+                <td>Bcrypt Hashing, CSRF Protection, Custom Middleware</td>
+                <td>Mã hóa mật khẩu nhân viên, chống tấn công giả mạo request và kiểm soát quyền truy cập.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br clear="all" style="page-break-before:always" />
+
+    <!-- CHƯƠNG 3 -->
+    <h1>CHƯƠNG 3: PHÂN TÍCH VÀ THIẾT KẾ HỆ THỐNG</h1>
+
+    <h2>3.1. Phân tích các chức năng hệ thống</h2>
+    <p>Hệ thống <b>PharmaCare</b> được chia thành 6 phân hệ chức năng chính:</p>
+    <ol>
+        <li><b>Phân hệ Xác thực và Phân quyền:</b> Đăng nhập, đăng xuất, ghi nhớ phiên đăng nhập, tự động khóa truy cập đối với tài khoản <code>inactive</code> và kiểm soát quyền <code>admin:only</code> đối với chức năng Nhà cung cấp và Nhân viên.</li>
+        <li><b>Phân hệ Bảng điều khiển (Dashboard):</b> Tổng hợp số liệu thời gian thực về tổng doanh thu, doanh thu hôm nay, tổng số hóa đơn, tổng mặt hàng thuốc, số thuốc sắp hết hàng và số thuốc sắp hết hạn.</li>
+        <li><b>Phân hệ Quản lý Danh mục thuốc:</b> Xem danh sách kèm số lượng thuốc từng nhóm, tìm kiếm, thêm mới, chỉnh sửa và xóa danh mục (có kiểm tra ràng buộc thuốc đang tồn tại).</li>
+        <li><b>Phân hệ Quản lý Thuốc:</b> Quản lý chi tiết thuốc, tìm kiếm theo mã/tên, lọc theo danh mục, lọc theo tình trạng số lượng và hạn sử dụng; cảnh báo màu sắc trực quan.</li>
+        <li><b>Phân hệ Bán hàng &amp; Quản lý Hóa đơn:</b> Tạo hóa đơn nhiều mặt hàng, tự động tính thành tiền và tổng tiền, kiểm tra và trừ số lượng thuốc tự động, xem chi tiết/in hóa đơn, hủy hóa đơn và hoàn trả số lượng.</li>
+        <li><b>Phân hệ Quản lý Nhà cung cấp &amp; Nhân viên (Chỉ dành cho Admin):</b> Quản lý thông tin các công ty dược cung ứng thuốc và quản lý hồ sơ nhân sự, chức vụ, mức lương, trạng thái làm việc.</li>
+    </ol>
+
+    <h2>3.2. Thiết kế Cơ sở dữ liệu (Database Schema)</h2>
+    <p>Cơ sở dữ liệu của hệ thống bao gồm <b>6 bảng dữ liệu chính</b> có mối quan hệ khóa ngoại chặt chẽ:</p>
+    <ul>
+        <li>Một <b>Danh mục</b> (<code>categories</code>) có nhiều <b>Thuốc</b> (<code>medicines</code>) — Quan hệ 1-N.</li>
+        <li>Một <b>Nhà cung cấp</b> (<code>suppliers</code>) cung ứng nhiều <b>Thuốc</b> (<code>medicines</code>) — Quan hệ 1-N.</li>
+        <li>Một <b>Nhân viên</b> (<code>users</code>) lập nhiều <b>Hóa đơn bán lẻ</b> (<code>invoices</code>) — Quan hệ 1-N.</li>
+        <li>Một <b>Hóa đơn</b> (<code>invoices</code>) bao gồm nhiều <b>Chi tiết hóa đơn</b> (<code>invoice_details</code>) — Quan hệ 1-N.</li>
+        <li>Một <b>Thuốc</b> (<code>medicines</code>) xuất hiện trong nhiều <b>Chi tiết hóa đơn</b> (<code>invoice_details</code>) — Quan hệ 1-N.</li>
+    </ul>
+
+    <h3>3.2.1. Bảng `users` (Quản lý nhân viên và tài khoản người dùng)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 22%;">Tên trường</th>
+                <th style="width: 20%;">Kiểu dữ liệu</th>
+                <th style="width: 23%;">Ràng buộc</th>
+                <th style="width: 35%;">Mô tả chi tiết</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><code>id</code></td><td>BIGINT</td><td>Primary Key, Auto Increment</td><td>Mã định danh tự tăng của nhân viên</td></tr>
+            <tr><td><code>name</code></td><td>VARCHAR(255)</td><td>NOT NULL</td><td>Họ và tên nhân viên</td></tr>
+            <tr><td><code>email</code></td><td>VARCHAR(255)</td><td>UNIQUE, NOT NULL</td><td>Địa chỉ email dùng để đăng nhập</td></tr>
+            <tr><td><code>phone</code></td><td>VARCHAR(20)</td><td>NULLABLE</td><td>Số điện thoại liên hệ</td></tr>
+            <tr><td><code>role</code></td><td>VARCHAR(50)</td><td>DEFAULT 'pharmacist'</td><td>Chức vụ: <code>admin</code> (Quản trị viên), <code>pharmacist</code> (Dược sĩ)</td></tr>
+            <tr><td><code>status</code></td><td>VARCHAR(50)</td><td>DEFAULT 'active'</td><td>Trạng thái: <code>active</code> (Đang làm), <code>inactive</code> (Đã nghỉ)</td></tr>
+            <tr><td><code>salary</code></td><td>DECIMAL(12,2)</td><td>DEFAULT 0</td><td>Mức lương cơ bản hàng tháng (VNĐ)</td></tr>
+            <tr><td><code>password</code></td><td>VARCHAR(255)</td><td>NOT NULL</td><td>Mật khẩu đã mã hóa Bcrypt</td></tr>
+            <tr><td><code>created_at</code>, <code>updated_at</code></td><td>TIMESTAMP</td><td>NULLABLE</td><td>Thời điểm khởi tạo và cập nhật bản ghi</td></tr>
+        </tbody>
+    </table>
+
+    <h3>3.2.2. Bảng `categories` (Danh mục nhóm thuốc điều trị)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 22%;">Tên trường</th>
+                <th style="width: 20%;">Kiểu dữ liệu</th>
+                <th style="width: 23%;">Ràng buộc</th>
+                <th style="width: 35%;">Mô tả chi tiết</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><code>id</code></td><td>BIGINT</td><td>Primary Key, Auto Increment</td><td>Mã định danh danh mục</td></tr>
+            <tr><td><code>name</code></td><td>VARCHAR(255)</td><td>UNIQUE, NOT NULL</td><td>Tên nhóm thuốc (VD: Kháng sinh, Giảm đau...)</td></tr>
+            <tr><td><code>description</code></td><td>TEXT</td><td>NULLABLE</td><td>Mô tả chi tiết công dụng của nhóm thuốc</td></tr>
+            <tr><td><code>created_at</code>, <code>updated_at</code></td><td>TIMESTAMP</td><td>NULLABLE</td><td>Thời điểm tạo và cập nhật</td></tr>
+        </tbody>
+    </table>
+
+    <h3>3.2.3. Bảng `suppliers` (Nhà cung cấp dược phẩm)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 22%;">Tên trường</th>
+                <th style="width: 20%;">Kiểu dữ liệu</th>
+                <th style="width: 23%;">Ràng buộc</th>
+                <th style="width: 35%;">Mô tả chi tiết</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><code>id</code></td><td>BIGINT</td><td>Primary Key, Auto Increment</td><td>Mã định danh nhà cung cấp</td></tr>
+            <tr><td><code>code</code></td><td>VARCHAR(50)</td><td>UNIQUE, NOT NULL</td><td>Mã nhà cung cấp (VD: NCC001, NCC002)</td></tr>
+            <tr><td><code>name</code></td><td>VARCHAR(255)</td><td>NOT NULL</td><td>Tên công ty / đơn vị cung ứng dược phẩm</td></tr>
+            <tr><td><code>phone</code></td><td>VARCHAR(20)</td><td>NULLABLE</td><td>Số điện thoại liên hệ đặt hàng</td></tr>
+            <tr><td><code>email</code></td><td>VARCHAR(255)</td><td>NULLABLE</td><td>Địa chỉ email giao dịch</td></tr>
+            <tr><td><code>address</code></td><td>VARCHAR(255)</td><td>NULLABLE</td><td>Địa chỉ trụ sở nhà cung cấp</td></tr>
+            <tr><td><code>description</code></td><td>TEXT</td><td>NULLABLE</td><td>Ghi chú về năng lực, tiêu chuẩn GMP</td></tr>
+            <tr><td><code>created_at</code>, <code>updated_at</code></td><td>TIMESTAMP</td><td>NULLABLE</td><td>Thời điểm tạo và cập nhật</td></tr>
+        </tbody>
+    </table>
+
+    <h3>3.2.4. Bảng `medicines` (Thông tin thuốc)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 22%;">Tên trường</th>
+                <th style="width: 20%;">Kiểu dữ liệu</th>
+                <th style="width: 23%;">Ràng buộc</th>
+                <th style="width: 35%;">Mô tả chi tiết</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><code>id</code></td><td>BIGINT</td><td>Primary Key, Auto Increment</td><td>Mã định danh thuốc</td></tr>
+            <tr><td><code>code</code></td><td>VARCHAR(50)</td><td>UNIQUE, NOT NULL</td><td>Mã thuốc quản lý (VD: PARA500, AUG1G)</td></tr>
+            <tr><td><code>name</code></td><td>VARCHAR(255)</td><td>NOT NULL</td><td>Tên thuốc / hàm lượng hoạt chất</td></tr>
+            <tr><td><code>category_id</code></td><td>BIGINT</td><td>Foreign Key (<code>categories.id</code>)</td><td>Thuộc nhóm danh mục điều trị</td></tr>
+            <tr><td><code>supplier_id</code></td><td>BIGINT</td><td>Foreign Key (<code>suppliers.id</code>)</td><td>Đơn vị cung ứng thuốc</td></tr>
+            <tr><td><code>unit</code></td><td>VARCHAR(50)</td><td>NOT NULL</td><td>Đơn vị tính (Hộp, Vỉ, Viên, Chai, Tuýp, Lọ...)</td></tr>
+            <tr><td><code>price</code></td><td>DECIMAL(12,2)</td><td>NOT NULL</td><td>Giá bán lẻ niêm yết (VNĐ)</td></tr>
+            <tr><td><code>stock</code></td><td>INTEGER</td><td>NOT NULL, DEFAULT 0</td><td>Số lượng thuốc hiện có</td></tr>
+            <tr><td><code>expiry_date</code></td><td>DATE</td><td>NOT NULL</td><td>Ngày hết hạn sử dụng của thuốc</td></tr>
+            <tr><td><code>description</code></td><td>TEXT</td><td>NULLABLE</td><td>Hướng dẫn sử dụng, chỉ định, chống chỉ định</td></tr>
+        </tbody>
+    </table>
+
+    <h3>3.2.5. Bảng `invoices` (Hóa đơn bán lẻ thuốc)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 22%;">Tên trường</th>
+                <th style="width: 20%;">Kiểu dữ liệu</th>
+                <th style="width: 23%;">Ràng buộc</th>
+                <th style="width: 35%;">Mô tả chi tiết</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><code>id</code></td><td>BIGINT</td><td>Primary Key, Auto Increment</td><td>Mã định danh hóa đơn</td></tr>
+            <tr><td><code>code</code></td><td>VARCHAR(50)</td><td>UNIQUE, NOT NULL</td><td>Mã hóa đơn tự sinh (<code>HD-YYYYMMDD-XXXX</code>)</td></tr>
+            <tr><td><code>customer_name</code></td><td>VARCHAR(255)</td><td>DEFAULT 'Khách lẻ'</td><td>Họ tên khách mua thuốc</td></tr>
+            <tr><td><code>customer_phone</code></td><td>VARCHAR(20)</td><td>NULLABLE</td><td>Số điện thoại khách hàng</td></tr>
+            <tr><td><code>user_id</code></td><td>BIGINT</td><td>Foreign Key (<code>users.id</code>)</td><td>Dược sĩ / Quản trị viên lập hóa đơn</td></tr>
+            <tr><td><code>total_amount</code></td><td>DECIMAL(14,2)</td><td>DEFAULT 0</td><td>Tổng số tiền thanh toán của hóa đơn (VNĐ)</td></tr>
+            <tr><td><code>payment_method</code></td><td>VARCHAR(50)</td><td>DEFAULT 'cash'</td><td>Phương thức: <code>cash</code>, <code>transfer</code>, <code>card</code></td></tr>
+            <tr><td><code>status</code></td><td>VARCHAR(50)</td><td>DEFAULT 'paid'</td><td>Trạng thái: <code>paid</code> (Đã thu), <code>cancelled</code> (Đã hủy)</td></tr>
+            <tr><td><code>note</code></td><td>TEXT</td><td>NULLABLE</td><td>Ghi chú dặn dò bệnh nhân liều uống</td></tr>
+        </tbody>
+    </table>
+
+    <h3>3.2.6. Bảng `invoice_details` (Chi tiết hóa đơn bán thuốc)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 22%;">Tên trường</th>
+                <th style="width: 20%;">Kiểu dữ liệu</th>
+                <th style="width: 23%;">Ràng buộc</th>
+                <th style="width: 35%;">Mô tả chi tiết</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><code>id</code></td><td>BIGINT</td><td>Primary Key, Auto Increment</td><td>Mã dòng chi tiết hóa đơn</td></tr>
+            <tr><td><code>invoice_id</code></td><td>BIGINT</td><td>Foreign Key (<code>invoices.id</code>)</td><td>Liên kết tới hóa đơn chính</td></tr>
+            <tr><td><code>medicine_id</code></td><td>BIGINT</td><td>Foreign Key (<code>medicines.id</code>)</td><td>Liên kết tới loại thuốc được bán</td></tr>
+            <tr><td><code>quantity</code></td><td>INTEGER</td><td>NOT NULL</td><td>Số lượng thuốc mua</td></tr>
+            <tr><td><code>unit_price</code></td><td>DECIMAL(12,2)</td><td>NOT NULL</td><td>Đơn giá bán thực tế tại thời điểm giao dịch</td></tr>
+            <tr><td><code>total_price</code></td><td>DECIMAL(14,2)</td><td>NOT NULL</td><td>Thành tiền từng dòng (<code>quantity * unit_price</code>)</td></tr>
+        </tbody>
+    </table>
+
+    <br clear="all" style="page-break-before:always" />
+
+    <!-- CHƯƠNG 4 -->
+    <h1>CHƯƠNG 4: TRIỂN KHAI CHI TIẾT CÁC PHÂN HỆ CHỨC NĂNG</h1>
+
+    <h2>4.1. Tổ chức cấu trúc thư mục mã nguồn</h2>
+    <ul>
+        <li><code>app/Http/Controllers/</code>: Chứa 7 Controller xử lý nghiệp vụ (<code>AuthController</code>, <code>DashboardController</code>, <code>MedicineController</code>, <code>CategoryController</code>, <code>SupplierController</code>, <code>InvoiceController</code>, <code>StaffController</code>).</li>
+        <li><code>app/Http/Middleware/AdminMiddleware.php</code>: Middleware bảo vệ các route nội bộ và kiểm tra quyền <code>admin:only</code> đối với chức năng Nhà cung cấp và Nhân viên.</li>
+        <li><code>app/Models/</code>: Chứa 6 lớp Model ánh xạ CSDL kèm các phương thức kiểm tra hạn dùng, định dạng tiền tệ VNĐ và tên tiếng Việt.</li>
+        <li><code>database/migrations/</code> &amp; <code>database/seeders/</code>: Chứa các tệp khởi tạo bảng và dữ liệu mẫu thực tế.</li>
+        <li><code>resources/views/</code>: Chứa Layout tổng thể (<code>layouts/app.blade.php</code>) và các giao diện Blade cho từng phân hệ.</li>
+    </ul>
+
+    <h2>4.2. Chi tiết xử lý nghiệp vụ tại các phân hệ</h2>
+
+    <h3>4.2.1. Phân hệ Xác thực và Middleware Phân quyền</h3>
+    <p>Tại <code>AuthController</code>, khi người dùng gửi thông tin đăng nhập, hệ thống kiểm tra thông tin qua <code>Auth::attempt()</code>. Đặc biệt, hệ thống kiểm tra thêm thuộc tính <code>status</code> của nhân viên: nếu tài khoản có trạng thái <code>inactive</code> (đã nghỉ việc hoặc bị khóa), hệ thống lập tức đăng xuất, hủy phiên làm việc (<code>session()->invalidate()</code>) và trả về thông báo lỗi.</p>
+    <p>Tại <code>AdminMiddleware</code> và trên thanh điều hướng <code>layouts/app.blade.php</code>, tham số <code>$role === 'only'</code> kết hợp điều kiện <code>Auth::user()-&gt;isAdmin()</code> được sử dụng để bảo vệ 2 phân hệ <b>Quản lý Nhà cung cấp (<code>/suppliers</code>)</b> và <b>Quản lý Nhân viên (<code>/staff</code>)</b>. Tài khoản Dược sĩ sẽ không nhìn thấy 2 mục này trên giao diện và nếu cố tình truy cập qua URL cũng sẽ bị chặn và chuyển hướng về Dashboard.</p>
+
+    <h3>4.2.2. Phân hệ Quản lý Thuốc và Cảnh báo thông minh</h3>
+    <p>Trong lớp Model <code>Medicine</code>, hệ thống định nghĩa các phương thức kiểm tra tự động dựa trên thời gian thực (<code>Carbon</code>):</p>
+    <ul>
+        <li><code>isExpired()</code>: Kiểm tra <code>expiry_date-&gt;endOfDay()-&gt;isPast()</code> để xác định thuốc đã quá hạn sử dụng.</li>
+        <li><code>isExpiringSoon()</code>: Kiểm tra thuốc chưa quá hạn nhưng ngày hết hạn nằm trong vòng 30 ngày tới (<code>lte(now()-&gt;addDays(30)-&gt;endOfDay())</code>).</li>
+        <li><code>isLowStock()</code>: Kiểm tra số lượng <code>stock &lt;= 10</code> để cảnh báo nhập thêm hàng.</li>
+    </ul>
+    <p>Tại <code>MedicineController@index</code>, người dùng có thể kết hợp đồng thời nhiều bộ lọc: từ khóa tên/mã thuốc, danh mục thuốc, tình trạng số lượng và tình trạng hạn sử dụng mà vẫn giữ nguyên trạng thái phân trang nhờ phương thức <code>withQueryString()</code>.</p>
+
+    <h3>4.2.3. Phân hệ Quản lý Danh mục, Nhà cung cấp và Nhân viên (Bảo vệ toàn vẹn dữ liệu)</h3>
+    <p>Tại <code>CategoryController@destroy</code> và <code>SupplierController@destroy</code>, trước khi thực hiện lệnh xóa bản ghi, hệ thống kiểm tra số lượng thuốc đang liên kết thông qua <code>$category-&gt;medicines()-&gt;count()</code> và <code>$supplier-&gt;medicines()-&gt;count()</code>. Nếu số lượng lớn hơn 0, hệ thống ngăn chặn việc xóa và hiển thị thông báo rõ ràng có bao nhiêu loại thuốc đang thuộc danh mục/nhà cung cấp đó, tránh lỗi mất dữ liệu dây chuyền.</p>
+    <p>Tại <code>StaffController</code>, Quản trị viên có thể quản lý danh sách tài khoản với 2 vai trò <code>admin</code> và <code>pharmacist</code>, đồng thời hệ thống chặn thao tác tự xóa chính tài khoản đang đăng nhập (<code>$staff-&gt;id === Auth::id()</code>).</p>
+
+    <h3>4.2.4. Phân hệ Lập hóa đơn bán lẻ và Tự động điều chỉnh số lượng thuốc</h3>
+    <p>Đây là nghiệp vụ quan trọng nhất của hệ thống, được xử lý tại <code>InvoiceController@store</code> và <code>InvoiceController@cancel</code> bằng cơ chế <b>Database Transaction</b> (<code>DB::beginTransaction()</code>, <code>DB::commit()</code>, <code>DB::rollBack()</code>):</p>
+    <ul>
+        <li><b>Khi lập hóa đơn mới:</b>
+            <ol>
+                <li>Tự động lọc bỏ các dòng trống người dùng không chọn thuốc và kiểm tra dữ liệu đầu vào.</li>
+                <li>Tạo mã hóa đơn duy nhất theo định dạng <code>HD-YYYYMMDD-XXXX</code>.</li>
+                <li>Duyệt qua từng loại thuốc khách mua: kiểm tra nếu <code>$medicine-&gt;stock &lt; $quantity</code> thì lập tức ném ngoại lệ (Exception), thực hiện <code>DB::rollBack()</code> toàn bộ hóa đơn và thông báo tên loại thuốc không đủ số lượng.</li>
+                <li>Nếu đủ số lượng: lưu chi tiết vào bảng <code>invoice_details</code> và trừ trực tiếp số lượng thuốc bằng <code>$medicine-&gt;decrement('stock', $quantity)</code>.</li>
+                <li>Cập nhật tổng tiền <code>total_amount</code> của hóa đơn và <code>DB::commit()</code>.</li>
+            </ol>
+        </li>
+        <li><b>Khi hủy hóa đơn đã lập:</b>
+            <ol>
+                <li>Kiểm tra nếu hóa đơn đã ở trạng thái <code>cancelled</code> thì không cho phép hủy lại.</li>
+                <li>Mở Transaction, cập nhật trạng thái hóa đơn thành <code>cancelled</code>.</li>
+                <li>Duyệt qua toàn bộ các dòng chi tiết của hóa đơn và cộng hoàn trả lại số lượng bằng <code>$medicine-&gt;increment('stock', $detail-&gt;quantity)</code>.</li>
+            </ol>
+        </li>
+    </ul>
+
+    <h2>4.3. Tài khoản dữ liệu mẫu kiểm thử hệ thống</h2>
+    <p>Hệ thống đã xây dựng sẵn tệp <code>DatabaseSeeder.php</code> khởi tạo đầy đủ dữ liệu thực tế gồm 6 danh mục thuốc, 4 nhà cung cấp lớn (DHG Pharma, Traphaco, Imexpharm, Sanofi), 12 loại thuốc thông dụng, 2 hóa đơn mẫu và 2 tài khoản theo 2 cấp độ phân quyền:</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 28%;">Vai trò</th>
+                <th style="width: 28%;">Email đăng nhập</th>
+                <th style="width: 18%;">Mật khẩu</th>
+                <th style="width: 26%;">Ghi chú quyền hạn</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><b>Quản trị viên (Admin)</b></td>
+                <td><code>admin@gmail.com</code></td>
+                <td style="text-align: center;"><code>12345678</code></td>
+                <td>Toàn quyền hệ thống (có Quản lý Nhà cung cấp &amp; Nhân viên)</td>
+            </tr>
+            <tr>
+                <td><b>Dược sĩ bán hàng</b></td>
+                <td><code>duocsi@gmail.com</code></td>
+                <td style="text-align: center;"><code>12345678</code></td>
+                <td>Quản lý thuốc, danh mục &amp; lập hóa đơn bán hàng</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br clear="all" style="page-break-before:always" />
+
+    <!-- CHƯƠNG 5 -->
+    <h1>CHƯƠNG 5: KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN</h1>
+
+    <h2>5.1. Kết quả đạt được</h2>
+    <p>Sau quá trình phân tích, thiết kế và lập trình, đề tài <b>"Hệ thống Quản lý Nhà thuốc và Dược phẩm (PharmaCare)"</b> đã hoàn thành đầy đủ các mục tiêu đề ra:</p>
+    <ul>
+        <li>Xây dựng hoàn chỉnh ứng dụng Web theo mô hình chuẩn MVC trên nền tảng <b>Laravel 12</b> với mã nguồn rõ ràng, dễ bảo trì và mở rộng.</li>
+        <li>Thiết kế cơ sở dữ liệu chuẩn hóa gồm 6 bảng liên kết chặt chẽ, đáp ứng trọn vẹn quy trình từ Quản lý Danh mục, Nhà cung cấp, Thuốc, Hạn sử dụng đến Bán hàng và Quản lý nhân sự.</li>
+        <li>Phân quyền chặt chẽ giữa 2 vai trò Quản trị viên và Dược sĩ bán hàng, bảo mật các chức năng nhạy cảm (Nhà cung cấp và Nhân viên) chỉ dành riêng cho Admin.</li>
+        <li>Xử lý triệt để bài toán đồng bộ số lượng thuốc khi bán hàng và hủy đơn bằng <i>Database Transaction</i>, kèm giao diện xem trước và in hóa đơn bán lẻ trực tiếp trên trình duyệt.</li>
+    </ul>
+
+    <h2>5.2. Hạn chế của đề tài</h2>
+    <ul>
+        <li>Chưa tích hợp thiết bị phần cứng quét mã vạch (Barcode Scanner) tự động khi thêm thuốc vào hóa đơn.</li>
+        <li>Chưa có biểu đồ trực quan phân tích doanh thu theo chuỗi thời gian dài hạn.</li>
+    </ul>
+
+    <h2>5.3. Hướng phát triển trong tương lai</h2>
+    <ul>
+        <li>Tích hợp biểu đồ thống kê trực quan (Chart.js) theo dõi biến động doanh thu theo tuần/tháng/năm và xuất báo cáo ra định dạng Excel/PDF.</li>
+        <li>Tích hợp thanh toán mã QR động (VietQR) tự động xác nhận giao dịch chuyển khoản trên màn hình lập hóa đơn.</li>
+    </ul>
+
+</div>
+</body>
+</html>

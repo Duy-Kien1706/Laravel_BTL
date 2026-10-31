@@ -32,7 +32,6 @@
                     <option value="">-- Tất cả chức vụ --</option>
                     <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Quản trị viên (Admin)</option>
                     <option value="pharmacist" {{ request('role') == 'pharmacist' ? 'selected' : '' }}>Dược sĩ bán hàng</option>
-                    <option value="warehouse" {{ request('role') == 'warehouse' ? 'selected' : '' }}>Thủ kho dược phẩm</option>
                 </select>
             </div>
 
@@ -100,13 +99,9 @@
                                     <span class="badge bg-danger-subtle text-danger-emphasis border border-danger-subtle">
                                         <i class="bi bi-shield-lock-fill me-1"></i> Quản trị viên
                                     </span>
-                                @elseif($staff->role === 'pharmacist')
+                                @else
                                     <span class="badge bg-success-subtle text-success-emphasis border border-success-subtle">
                                         <i class="bi bi-capsule me-1"></i> Dược sĩ
-                                    </span>
-                                @else
-                                    <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle">
-                                        <i class="bi bi-boxes me-1"></i> Thủ kho
                                     </span>
                                 @endif
                             </td>

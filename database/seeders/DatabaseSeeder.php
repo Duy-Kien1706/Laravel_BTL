@@ -19,11 +19,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Tạo 3 tài khoản nhân viên với các vai trò khác nhau
+        // 1. Tạo tài khoản nhân viên với các vai trò (Admin & Dược sĩ)
+        User::where('role', 'warehouse')->delete();
+
         $admin = User::updateOrCreate(
             ['email' => 'admin@gmail.com'],
             [
-                'name' => 'Nguyễn Văn Quản Lý (Admin)',
+                'name' => 'Nguyễn Văn Minh',
                 'phone' => '0988123456',
                 'role' => 'admin',
                 'status' => 'active',
@@ -40,18 +42,6 @@ class DatabaseSeeder extends Seeder
                 'role' => 'pharmacist',
                 'status' => 'active',
                 'salary' => 11000000,
-                'password' => Hash::make('12345678'),
-            ]
-        );
-
-        $warehouseStaff = User::updateOrCreate(
-            ['email' => 'thukho@gmail.com'],
-            [
-                'name' => 'Lê Hoàng Minh (Thủ Kho)',
-                'phone' => '0912345678',
-                'role' => 'warehouse',
-                'status' => 'active',
-                'salary' => 9500000,
                 'password' => Hash::make('12345678'),
             ]
         );

@@ -8,7 +8,7 @@ Table users {
   name varchar [not null]
   email varchar [unique, not null]
   phone varchar
-  role varchar [default: 'pharmacist', note: 'admin | pharmacist | warehouse']
+  role varchar [default: 'pharmacist', note: 'admin | pharmacist']
   status varchar [default: 'active', note: 'active | inactive']
   salary decimal(12,2) [default: 0]
   email_verified_at timestamp

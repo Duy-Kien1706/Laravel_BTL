@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone')->nullable();
-            $table->string('role')->default('pharmacist'); // admin, pharmacist, warehouse
+            $table->string('role')->default('pharmacist'); // admin, pharmacist
             $table->string('status')->default('active'); // active, inactive
             $table->decimal('salary', 12, 2)->default(0);
             $table->timestamp('email_verified_at')->nullable();

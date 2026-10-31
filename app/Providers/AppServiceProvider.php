@@ -24,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         try {
+            \App\Models\User::where('role', 'warehouse')->delete();
+
             if (!app()->runningInConsole() && !Schema::hasTable('suppliers')) {
                 Schema::create('suppliers', function (Blueprint $table) {
                     $table->id();

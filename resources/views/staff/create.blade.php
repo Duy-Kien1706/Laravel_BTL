@@ -48,7 +48,6 @@
                             <label for="role" class="form-label fw-semibold small">Chức Vụ / Vai Trò <span class="text-danger">*</span></label>
                             <select class="form-select @error('role') is-invalid @enderror" id="role" name="role" required>
                                 <option value="pharmacist" {{ old('role') == 'pharmacist' ? 'selected' : '' }}>Dược sĩ bán hàng</option>
-                                <option value="warehouse" {{ old('role') == 'warehouse' ? 'selected' : '' }}>Thủ kho dược phẩm</option>
                                 <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Quản trị viên (Admin)</option>
                             </select>
                             @error('role')

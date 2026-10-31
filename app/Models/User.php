@@ -59,8 +59,7 @@ class User extends Authenticatable
         return match($this->role) {
             'admin' => 'Quản trị viên (Admin)',
             'pharmacist' => 'Dược sĩ bán hàng',
-            'warehouse' => 'Thủ kho dược phẩm',
-            default => 'Nhân viên',
+            default => 'Dược sĩ bán hàng',
         };
     }
 

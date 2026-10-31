@@ -43,29 +43,29 @@
         </div>
     </div>
 
-    <div class="col-sm-6 col-xl-3">
-        <div class="card h-100 border-0 bg-info-subtle text-info-emphasis shadow-sm">
-            <div class="card-body d-flex align-items-center justify-content-between p-3">
-                <div>
-                    <div class="text-uppercase small fw-bold opacity-75">Nhà Cung Cấp Dược</div>
-                    <div class="fs-4 fw-bold mt-1 text-info">{{ number_format($stats['total_suppliers']) }}</div>
-                    <div class="small text-muted mt-1">Đối tác phân phối thuốc</div>
-                </div>
-                <div class="stat-icon bg-info text-white shadow-sm">
-                    <i class="bi bi-truck"></i>
+    @if(Auth::user()->isAdmin())
+        <div class="col-sm-6 col-xl-3">
+            <div class="card h-100 border-0 bg-info-subtle text-info-emphasis shadow-sm">
+                <div class="card-body d-flex align-items-center justify-content-between p-3">
+                    <div>
+                        <div class="text-uppercase small fw-bold opacity-75">Nhà Cung Cấp Dược</div>
+                        <div class="fs-4 fw-bold mt-1 text-info">{{ number_format($stats['total_suppliers']) }}</div>
+                        <div class="small text-muted mt-1">Đối tác phân phối thuốc</div>
+                    </div>
+                    <div class="stat-icon bg-info text-white shadow-sm">
+                        <i class="bi bi-truck"></i>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    @if(Auth::user()->isAdmin())
         <div class="col-sm-6 col-xl-3">
             <div class="card h-100 border-0 bg-purple-subtle text-dark shadow-sm" style="background-color: #f3e8ff;">
                 <div class="card-body d-flex align-items-center justify-content-between p-3">
                     <div>
                         <div class="text-uppercase small fw-bold opacity-75">Đội Ngũ Nhân Viên</div>
                         <div class="fs-4 fw-bold mt-1 text-indigo" style="color: #6b21a8;">{{ number_format($stats['total_staff']) }}</div>
-                        <div class="small text-muted mt-1">Dược sĩ, thủ kho & admin</div>
+                        <div class="small text-muted mt-1">Quản trị viên &amp; dược sĩ</div>
                     </div>
                     <div class="stat-icon text-white shadow-sm" style="background-color: #7c3aed;">
                         <i class="bi bi-people-fill"></i>

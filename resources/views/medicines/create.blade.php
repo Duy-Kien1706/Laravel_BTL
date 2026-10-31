@@ -58,7 +58,9 @@
                         <div class="col-md-4">
                             <div class="d-flex justify-content-between align-items-center mb-1">
                                 <label for="supplier_id" class="form-label fw-semibold small mb-0">Nhà Cung Cấp</label>
-                                <a href="{{ route('suppliers.create') }}" class="small text-decoration-none">+ Nhà cung cấp</a>
+                                @if(Auth::user()->isAdmin())
+                                    <a href="{{ route('suppliers.create') }}" class="small text-decoration-none">+ Nhà cung cấp</a>
+                                @endif
                             </div>
                             <select class="form-select @error('supplier_id') is-invalid @enderror" id="supplier_id" name="supplier_id">
                                 <option value="">-- Chọn nhà cung cấp --</option>

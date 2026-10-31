@@ -25,7 +25,7 @@ class AdminMiddleware
         /** @var \App\Models\User $user */
         $user = Auth::user();
         if ($role === 'only' && !$user->isAdmin()) {
-            return redirect()->route('dashboard')->with('error', 'Chỉ Quản trị viên (Admin) mới có quyền quản lý nhân viên!');
+            return redirect()->route('dashboard')->with('error', 'Chỉ Quản trị viên (Admin) mới có quyền quản lý nhà cung cấp và nhân viên!');
         }
 
         return $next($request);

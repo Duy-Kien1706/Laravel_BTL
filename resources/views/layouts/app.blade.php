@@ -257,10 +257,12 @@
                         <span>Danh Mục Thuốc</span>
                     </a>
 
-                    <a href="{{ route('suppliers.index') }}" class="sidebar-link {{ request()->routeIs('suppliers.*') ? 'active' : '' }}">
-                        <i class="bi bi-truck"></i>
-                        <span>Nhà Cung Cấp</span>
-                    </a>
+                    @if(Auth::user()->isAdmin())
+                        <a href="{{ route('suppliers.index') }}" class="sidebar-link {{ request()->routeIs('suppliers.*') ? 'active' : '' }}">
+                            <i class="bi bi-truck"></i>
+                            <span>Nhà Cung Cấp</span>
+                        </a>
+                    @endif
 
                     <div class="nav-category">Bán Hàng & Nhân Sự</div>
                     <a href="{{ route('invoices.index') }}" class="sidebar-link {{ request()->routeIs('invoices.*') ? 'active' : '' }}">
