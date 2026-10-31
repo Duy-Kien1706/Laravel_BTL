@@ -30,17 +30,17 @@
             <div class="col-md-3 col-lg-3">
                 <select name="payment_method" class="form-select form-select-sm">
                     <option value="">-- Hình thức thanh toán --</option>
-                    <option value="cash" {{ request('payment_method') == 'cash' ? 'selected' : '' }}>Tiền mặt</option>
-                    <option value="transfer" {{ request('payment_method') == 'transfer' ? 'selected' : '' }}>Chuyển khoản</option>
-                    <option value="card" {{ request('payment_method') == 'card' ? 'selected' : '' }}>Thẻ ngân hàng</option>
+                    <option value="cash">Tiền mặt</option>
+                    <option value="transfer" >Chuyển khoản</option>
+                    <option value="card" >Thẻ ngân hàng</option>
                 </select>
             </div>
 
             <div class="col-md-3 col-lg-3">
                 <select name="status" class="form-select form-select-sm">
                     <option value="">-- Trạng thái đơn --</option>
-                    <option value="paid" {{ request('status') == 'paid' ? 'selected' : '' }}>Đã thanh toán</option>
-                    <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Đã hủy</option>
+                    <option value="paid" >Đã thanh toán</option>
+                    <option value="cancelled">Đã hủy</option>
                 </select>
             </div>
 
