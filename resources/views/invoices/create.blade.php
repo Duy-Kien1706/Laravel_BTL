@@ -43,9 +43,9 @@
                         <div class="col-md-4">
                             <label for="payment_method" class="form-label fw-semibold small">Phương Thức Thanh Toán <span class="text-danger">*</span></label>
                             <select class="form-select @error('payment_method') is-invalid @enderror" id="payment_method" name="payment_method" required>
-                                <option value="cash" {{ old('payment_method') == 'cash' ? 'selected' : '' }}>Tiền mặt</option>
-                                <option value="transfer" {{ old('payment_method') == 'transfer' ? 'selected' : '' }}>Chuyển khoản (QR / Internet Banking)</option>
-                                <option value="card" {{ old('payment_method') == 'card' ? 'selected' : '' }}>Thẻ POS (ATM / Visa)</option>
+                                <option value="cash">Tiền mặt</option>
+                                <option value="transfer">Chuyển khoản (QR / Internet Banking)</option>
+                                <option value="card">Thẻ POS (ATM / Visa)</option>
                             </select>
                             @error('payment_method')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -100,17 +100,17 @@
                                             <select name="items[{{ $i }}][medicine_id]" class="form-select form-select-sm" {{ $i === 0 ? 'required' : '' }}>
                                                 <option value="">-- Chọn thuốc {{ $i === 0 ? '(Bắt buộc)' : '(Tùy chọn)' }} --</option>
                                                 @foreach($medicines as $med)
-                                                    <option value="{{ $med->id }}" {{ old("items.$i.medicine_id") == $med->id ? 'selected' : '' }}>
+                                                    <option value="{{ $med->id }}" >
                                                         {{ $med->name }} (Tồn: {{ $med->stock }} {{ $med->unit }}) — Giá: {{ number_format($med->price, 0, ',', '.') }} đ
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="number" name="items[{{ $i }}][quantity]" class="form-control form-control-sm text-center" value="{{ old("items.$i.quantity", 1) }}" min="1">
+                                            <input type="number" name="items[{{ $i }}][quantity]" class="form-control form-control-sm text-center" value="" min="1">
                                         </td>
                                         <td>
-                                            <input type="number" name="items[{{ $i }}][unit_price]" class="form-control form-control-sm text-end" value="{{ old("items.$i.unit_price") }}" min="0" step="500" placeholder="Tự lấy giá niêm yết">
+                                            <input type="number" name="items[{{ $i }}][unit_price]" class="form-control form-control-sm text-end" value="" min="0" step="500" placeholder="Tự lấy giá niêm yết">
                                         </td>
                                     </tr>
                                 @endfor
