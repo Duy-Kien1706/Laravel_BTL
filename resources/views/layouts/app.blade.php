@@ -235,7 +235,7 @@
                     </div>
                     <div class="sidebar-brand-text">
                         <h6>PharmaCare</h6>
-                        <small>Hệ Thống Quản Lý Kho</small>
+                        <small>Quản Lý Tiệm Thuốc</small>
                     </div>
                 </a>
 
@@ -249,7 +249,7 @@
                     <div class="nav-category">Kho Dược Phẩm</div>
                     <a href="{{ route('medicines.index') }}" class="sidebar-link {{ request()->routeIs('medicines.*') ? 'active' : '' }}">
                         <i class="bi bi-prescription2"></i>
-                        <span>Quản Lý Thuốc</span>
+                        <span>Thuốc</span>
                     </a>
 
                     <a href="{{ route('categories.index') }}" class="sidebar-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">
@@ -265,13 +265,13 @@
                     <div class="nav-category">Bán Hàng & Nhân Sự</div>
                     <a href="{{ route('invoices.index') }}" class="sidebar-link {{ request()->routeIs('invoices.*') ? 'active' : '' }}">
                         <i class="bi bi-receipt"></i>
-                        <span>Quản Lý Hóa Đơn</span>
+                        <span>Hóa Đơn</span>
                     </a>
 
                     @if(Auth::user()->isAdmin())
                         <a href="{{ route('staff.index') }}" class="sidebar-link {{ request()->routeIs('staff.*') ? 'active' : '' }}">
                             <i class="bi bi-people-fill"></i>
-                            <span>Quản Lý Nhân Viên</span>
+                            <span>Nhân Viên</span>
                         </a>
                     @endif
                 </div>
