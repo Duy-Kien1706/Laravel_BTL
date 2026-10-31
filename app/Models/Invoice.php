@@ -43,23 +43,4 @@ class Invoice extends Model
     {
         return number_format($this->total_amount, 0, ',', '.') . ' VNĐ';
     }
-
-    public function getPaymentMethodNameAttribute(): string
-    {
-        return match($this->payment_method) {
-            'cash' => 'Tiền mặt',
-            'transfer' => 'Chuyển khoản',
-            'card' => 'Thẻ thanh toán',
-            default => 'Khác',
-        };
-    }
-
-    public function getStatusNameAttribute(): string
-    {
-        return match($this->status) {
-            'paid' => 'Đã thanh toán',
-            'cancelled' => 'Đã hủy',
-            default => 'Chờ xử lý',
-        };
-    }
 }

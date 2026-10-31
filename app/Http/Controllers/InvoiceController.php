@@ -46,7 +46,7 @@ class InvoiceController extends Controller
     public function create(Request $request)
     {
         $medicines = Medicine::with('category')->where('stock', '>', 0)->orderBy('name')->get();
-        $rowCount = max(1, min(15, (int) $request->query('rows', 3)));
+        $rowCount = max(1, min(15, (int) $request->query('rows', 1)));
 
         return view('invoices.create', compact('medicines', 'rowCount'));
     }
@@ -56,13 +56,6 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        // Lọc bỏ các dòng trống (chưa chọn thuốc) trước khi validate
-        $filteredItems = collect($request->input('items', []))
-            ->filter(fn ($item) => !empty($item['medicine_id']))
-            ->values()
-            ->all();
-        $request->merge(['items' => $filteredItems]);
-
         $validated = $request->validate([
             'customer_name' => ['required', 'string', 'max:255'],
             'customer_phone' => ['nullable', 'string', 'max:20'],
