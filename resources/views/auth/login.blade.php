@@ -14,13 +14,6 @@
                     <h4 class="fw-bold mb-1">Đăng Nhập Quản Trị</h4>
                     <p class="text-muted small">Nhập thông tin tài khoản để truy cập hệ thống thuốc</p>
                 </div>
-
-                <!-- Gợi ý tài khoản demo -->
-                <div class="alert alert-info py-2 px-3 small mb-3 border-0 bg-info-subtle text-info-emphasis">
-                    <i class="bi bi-info-circle-fill me-1"></i> <strong>Tài khoản có sẵn:</strong><br>
-                    Email: <code>admin@gmail.com</code> | Mật khẩu: <code>12345678</code>
-                </div>
-
                 <form action="{{ route('login.post') }}" method="POST">
                     @csrf
                     <div class="mb-3">
