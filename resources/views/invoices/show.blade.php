@@ -69,8 +69,20 @@
 
                 <div class="col-sm-6 col-md-3">
                     <span class="text-muted small d-block">Hình thức thanh toán:</span>
-                    <span class="badge bg-light text-dark border mt-1">
-                        {{ $invoice->payment_method_name }}
+                    <span class=" border mt-1">
+                        @if($invoice->payment_method === 'cash')
+                            <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle">
+                                <i class="bi bi-cash me-1"></i> Tiền mặt
+                            </span>
+                        @elseif($invoice->payment_method === 'transfer')
+                            <span class="badge bg-primary-subtle text-primary-emphasis border border-primary-subtle">
+                                <i class="bi bi-qr-code me-1"></i> Chuyển khoản
+                            </span>
+                        @else
+                            <span class="badge bg-purple-subtle text-dark border">
+                                <i class="bi bi-credit-card me-1"></i> Thẻ
+                            </span>
+                        @endif
                     </span>
                 </div>
 
