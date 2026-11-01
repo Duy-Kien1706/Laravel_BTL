@@ -76,7 +76,7 @@ class InvoiceController extends Controller
             DB::beginTransaction();
 
             $code = 'HD-' . date('Ymd') . '-' . strtoupper(substr(uniqid(), -4));
-
+// tạo dòng cho bảng 
             $invoice = Invoice::create([
                 'code' => $code,
                 'customer_name' => $validated['customer_name'],
@@ -141,20 +141,26 @@ class InvoiceController extends Controller
     /**
      * Hủy hóa đơn và hoàn trả số lượng vào kho
      */
-    public function cancel(Invoice $invoice)
+    public function update(Request $request, Invoice $invoice)
     {
-        if ($invoice->status === 'cancelled') {
-            return back()->with('error', 'Hóa đơn này đã được hủy trước đó!');
-        }
-
         try {
             DB::beginTransaction();
 
+            $invoice = Invoice::whereKey($invoice->id)
+                ->lockForUpdate()
+                ->firstOrFail();
+
+            if ($invoice->status !== 'paid') {
+                DB::rollBack();
+
+                return back()->with('error', 'Hóa đơn không thể hủy!');
+            }
+
             $invoice->update(['status' => 'cancelled']);
 
-            // Hoàn trả số lượng tồn kho cho từng loại thuốc
             foreach ($invoice->details as $detail) {
                 $medicine = $detail->medicine;
+
                 if ($medicine) {
                     $medicine->increment('stock', $detail->quantity);
                 }
@@ -162,11 +168,11 @@ class InvoiceController extends Controller
 
             DB::commit();
 
-            return back()
-                ->with('success', 'Đã hủy hóa đơn ' . $invoice->code . ' và hoàn trả tồn kho thuốc thành công!');
+            return back()->with('success', 'Hủy hóa đơn thành công!');
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->with('error', 'Lỗi khi hủy hóa đơn: ' . $e->getMessage());
+
+            return back()->with('error', 'Lỗi: ' . $e->getMessage());
         }
     }
 }

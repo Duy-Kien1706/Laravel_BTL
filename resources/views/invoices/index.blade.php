@@ -127,8 +127,9 @@
                                         <i class="bi bi-eye"></i>
                                     </a>
                                     @if($inv->status === 'paid')
-                                        <form action="{{ route('invoices.cancel', $inv) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn hủy hóa đơn {{ $inv->code }} không?\nSau khi hủy, số lượng thuốc sẽ được hoàn trả lại vào kho tự động.');">
+                                        <form action="{{ route('invoices.update', $inv) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn hủy hóa đơn {{ $inv->code }} không?\nSau khi hủy, số lượng thuốc sẽ được hoàn trả lại vào kho tự động.');">
                                             @csrf
+                                            @method('PUT')
                                             <button type="submit" class="btn btn-sm btn-outline-danger shadow-sm" title="Hủy hóa đơn">
                                                 <i class="bi bi-x-circle"></i>
                                             </button>

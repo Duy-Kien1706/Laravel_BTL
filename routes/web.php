@@ -38,9 +38,8 @@ Route::middleware('admin')->group(function () {
     Route::resource('categories', CategoryController::class);
 
     // 2. Quản lý Hóa Đơn (Bán hàng)
-    Route::resource('invoices', InvoiceController::class)->only(['index', 'create', 'store', 'show']);
-    Route::post('invoices/{invoice}/cancel', [InvoiceController::class, 'cancel'])->name('invoices.cancel');
-
+    Route::resource('invoices', InvoiceController::class)->only(['index', 'create', 'store', 'show' , 'update']);
+    
     // 3. Quản lý Nhà Cung Cấp & Nhân Viên (Chỉ Admin)
     Route::middleware('admin:only')->group(function () {
         Route::resource('suppliers', SupplierController::class)->except(['show']);
